@@ -7,6 +7,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "data:process": "ts-node ./scripts/data-processing.script.ts",
+    "data:import": "ts-node ./scripts/data-import.script.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "npm start:dev",
     "start:dev": "nest start --watch",
