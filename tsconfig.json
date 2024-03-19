@@ -16,6 +16,15 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@dataset/raw": ["dataset/raw"],
+      "@dataset/processed": ["dataset/processed"],
+      "@scripts/shared/*": ["scripts/shared/*"],
+      "@scripts/utils": ["scripts/utils"]
+    }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   }
 }
