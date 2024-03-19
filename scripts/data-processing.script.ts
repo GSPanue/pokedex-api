@@ -1,8 +1,7 @@
 import * as path from 'path';
 
-import { getRows } from '@scripts/utils';
-import type { RowStream } from '@scripts/utils';
-import type { Config } from '@scripts/shared/types';
+import { getFile, getRows } from '@scripts/utils';
+import type { Config, File, RowStream } from '@scripts/shared/types';
 
 const filename = 'pokedex_data_04_2021';
 const ext = '.csv';
@@ -12,13 +11,15 @@ const config: Config = {
   path: path.join(__dirname, '../dataset/raw', `${filename}${ext}`),
 };
 
-type ProcessDataReturnType = void;
-interface ProcessData {
-  (): ProcessDataReturnType;
+type StartReturnType = void;
+interface Start {
+  (): StartReturnType;
 }
 
-const processData: ProcessData = async () => {
-  const rows: RowStream = await getRows(config);
+const start: Start = async () => {
+  const file: File = getFile(config);
+  const rows: RowStream = await getRows(file);
+
   const processedRows = [];
 
   rows.on('data', (row) => {
@@ -42,4 +43,4 @@ const processData: ProcessData = async () => {
   });
 };
 
-processData();
+start();

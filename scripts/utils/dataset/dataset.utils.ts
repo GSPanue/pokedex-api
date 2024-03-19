@@ -1,32 +1,40 @@
 import { open } from 'data.js';
-import { EventEmitter } from 'events';
 
-import type { Config } from '@scripts/shared/types';
+import type { Config, File, RowStream } from '@scripts/shared/types';
 
-interface RowStream extends EventEmitter {
-  on(event: 'data', listener: (row: any[]) => void): this;
-  on(event: 'end', listener: () => void): this;
-  on(event: 'error', listener: (error: Error) => void): this;
+type GetFileReturnType = File;
+interface GetFile {
+  (config: Config): GetFileReturnType;
 }
 
-type GetRowsReturnType = Promise<RowStream>;
-interface GetRows {
-  (config: Config): GetRowsReturnType;
-}
-
-const getRows: GetRows = async (config) => {
+const getFile: GetFile = (config) => {
   const { path } = config;
 
   try {
     const file = open(path);
-    const rows: RowStream = await file.rows();
 
-    return rows;
+    return file;
   } catch (error) {
-    console.error(`Error opening file: ${error}`);
+    console.log(`Error opening file: ${error}`);
     process.exit(1);
   }
 };
 
-export type { RowStream, GetRowsReturnType, GetRows };
-export { getRows };
+type GetRowsReturnType = Promise<RowStream>;
+interface GetRows {
+  (file: File): GetRowsReturnType;
+}
+
+const getRows: GetRows = async (file) => {
+  try {
+    const rows: RowStream = file.rows();
+
+    return rows;
+  } catch (error) {
+    console.error(`Error getting rows: ${error}`);
+    process.exit(1);
+  }
+};
+
+export type { RowStream, GetRowsReturnType };
+export { getFile, getRows };
