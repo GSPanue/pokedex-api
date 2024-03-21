@@ -1,4 +1,4 @@
-import * as path from 'path';
+import { join } from 'path';
 
 import { getFile, getData } from '@scripts/utils';
 
@@ -7,7 +7,7 @@ const ext: string = '.csv';
 
 const config = {
   filename,
-  path: path.join(__dirname, '../dataset/raw', `${filename}${ext}`),
+  path: join(__dirname, '../dataset/raw', `${filename}${ext}`),
 };
 
 const start = async () => {
