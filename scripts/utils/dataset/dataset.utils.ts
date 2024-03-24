@@ -1,7 +1,15 @@
 import { promises as fs } from 'fs';
 import { Promise as QPromise } from 'q';
 import { parse } from 'papaparse';
-import { pick } from 'lodash';
+import {
+  pick,
+  forOwn,
+  isEmpty,
+  size,
+  isString,
+  isNull,
+  includes,
+} from 'lodash';
 
 type GetFileReturnType = Promise<string>;
 interface GetFile {
@@ -14,7 +22,7 @@ const getFile: GetFile = async (path) => {
 
     return file;
   } catch (error) {
-    throw new Error(`Error retrieving file: ${error}`);
+    throw new Error(`Error reading file: ${error}`);
   }
 };
 
@@ -61,10 +69,14 @@ const getData: GetData = async (file) => {
         'ability_hidden',
       ];
 
-      results.push(pick(data, keys));
+      results.push(
+        // Pick keys in `keys` from data
+        pick(data, keys),
+      );
     };
 
     await QPromise((resolve, reject) => {
+      // Parse file
       parse(file, {
         header: true,
         dynamicTyping: true,
@@ -76,8 +88,89 @@ const getData: GetData = async (file) => {
 
     return results;
   } catch (error) {
-    throw new Error(`Error processing data: ${error}`);
+    throw new Error(`Error retrieving data: ${error}`);
   }
 };
 
-export { getFile, getData };
+type TrimStringValuesReturnType = PokemonData;
+interface TrimStringValues {
+  (data: PokemonData): TrimStringValuesReturnType;
+}
+
+const trimStringValues: TrimStringValues = (data) => {
+  const trimmedData = { ...data };
+
+  // Trim all data of type string
+  forOwn(trimmedData, (value, key) => {
+    if (isString(value)) {
+      data[key] = value.trim();
+    }
+  });
+
+  return trimmedData;
+};
+
+type FindMissingDataReturnType = string[] | [];
+interface FindMissingData {
+  (data: PokemonData): FindMissingDataReturnType;
+}
+
+const findMissingData: FindMissingData = (data) => {
+  const requiredDataKeys: string[] = [
+    'pokedex_number',
+    'name',
+    'generation',
+    'species',
+    'type_1',
+    'height_m',
+    'weight_kg',
+  ];
+
+  const missingDataKeys = [];
+
+  // Get keys of missing data
+  forOwn(data, (value, key) => {
+    if (isNull(value) && includes(requiredDataKeys, key)) {
+      missingDataKeys.push(key);
+    }
+  });
+
+  return missingDataKeys;
+};
+
+type ProcessDataReturnType = PokemonData[];
+interface ProcessData {
+  (data: PokemonData[]): ProcessDataReturnType;
+}
+
+const processData: ProcessData = (data) => {
+  const missingData = [];
+
+  // Trim all data and find any missing data
+  data.forEach((obj, index) => {
+    const trimmedData = trimStringValues(obj);
+
+    const missingDataKeys = findMissingData(trimmedData);
+    const hasMissingData = !isEmpty(missingDataKeys);
+
+    if (hasMissingData) {
+      missingData.push({
+        row: index + 2,
+        pokedex_number: trimmedData.pokedex_number,
+        keys: missingDataKeys,
+      });
+    }
+  });
+
+  const hasMissingData = !isEmpty(missingData);
+
+  if (hasMissingData) {
+    throw new Error(
+      `Found ${size(missingData)} row(s) with missing data:\n${JSON.stringify(missingData, null, 2)}`,
+    );
+  }
+
+  return data;
+};
+
+export { getFile, getData, processData };
