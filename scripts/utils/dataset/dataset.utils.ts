@@ -166,7 +166,7 @@ const processData: ProcessData = (data) => {
 
   if (hasMissingData) {
     throw new Error(
-      `Found ${size(missingData)} row(s) with missing data:\n${JSON.stringify(missingData, null, 2)}`,
+      `Found ${size(missingData)} row(s) with missing data:\n\n${JSON.stringify(missingData, null, 2)}`,
     );
   }
 
