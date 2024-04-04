@@ -11,9 +11,11 @@ import {
   includes,
 } from 'lodash';
 
+import type { Config } from '@scripts/shared';
+
 type GetFileReturnType = Promise<string>;
 interface GetFile {
-  (path: string): GetFileReturnType;
+  (path: Config['inputPath']): GetFileReturnType;
 }
 
 const getFile: GetFile = async (path) => {
@@ -44,33 +46,18 @@ type PokemonData = {
 };
 type GetDataReturnType = Promise<PokemonData[]>;
 interface GetData {
-  (file: string): GetDataReturnType;
+  (file: string, keys: Config['keys']): GetDataReturnType;
 }
 
-const getData: GetData = async (file) => {
+const getData: GetData = async (file, { selectedKeys }) => {
   try {
     const results = [];
 
     const handleStep = ({ data }) => {
-      const keys = [
-        'pokedex_number',
-        'name',
-        'german_name',
-        'japanese_name',
-        'generation',
-        'status',
-        'species',
-        'type_1',
-        'type_2',
-        'height_m',
-        'weight_kg',
-        'ability_1',
-        'ability_2',
-        'ability_hidden',
-      ];
+      const keys = selectedKeys;
 
       results.push(
-        // Pick keys in `keys` from data
+        // Pick all keys in `keys` from data
         pick(data, keys),
       );
     };
@@ -112,48 +99,42 @@ const trimStringValues: TrimStringValues = (data) => {
 
 type FindMissingDataReturnType = string[] | [];
 interface FindMissingData {
-  (data: PokemonData): FindMissingDataReturnType;
+  (
+    data: PokemonData,
+    keys: Config['keys']['requiredKeys'],
+  ): FindMissingDataReturnType;
 }
 
-const findMissingData: FindMissingData = (data) => {
-  const requiredDataKeys: string[] = [
-    'pokedex_number',
-    'name',
-    'generation',
-    'species',
-    'type_1',
-    'height_m',
-    'weight_kg',
-  ];
-
-  const missingDataKeys = [];
+const findMissingData: FindMissingData = (data, keys) => {
+  const missingKeys = [];
 
   // Get keys of missing data
   forOwn(data, (value, key) => {
-    if (isNull(value) && includes(requiredDataKeys, key)) {
-      missingDataKeys.push(key);
+    if (isNull(value) && includes(keys, key)) {
+      missingKeys.push(key);
     }
   });
 
-  return missingDataKeys;
+  return missingKeys;
 };
 
 type ProcessDataReturnType = PokemonData[];
 interface ProcessData {
-  (data: PokemonData[]): ProcessDataReturnType;
+  (data: PokemonData[], keys: Config['keys']): ProcessDataReturnType;
 }
 
-const processData: ProcessData = (data) => {
+const processData: ProcessData = (data, { requiredKeys }) => {
   const missingData = [];
 
   // Trim all data and find any missing data
   data.forEach((obj, index) => {
     const trimmedData = trimStringValues(obj);
 
-    const missingDataKeys = findMissingData(trimmedData);
+    const missingDataKeys = findMissingData(trimmedData, requiredKeys);
     const hasMissingData = !isEmpty(missingDataKeys);
 
     if (hasMissingData) {
+      // Push row with missing data
       missingData.push({
         row: index + 2,
         pokedex_number: trimmedData.pokedex_number,
@@ -165,8 +146,11 @@ const processData: ProcessData = (data) => {
   const hasMissingData = !isEmpty(missingData);
 
   if (hasMissingData) {
+    const missingDataLength = size(missingData);
+    const errorMessage = JSON.stringify(missingData, null, 2);
+
     throw new Error(
-      `Found ${size(missingData)} row(s) with missing data:\n\n${JSON.stringify(missingData, null, 2)}`,
+      `Found ${missingDataLength} row(s) with missing data:\n\n${errorMessage}`,
     );
   }
 
