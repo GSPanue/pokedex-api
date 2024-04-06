@@ -129,6 +129,7 @@ const processData: ProcessData = (data, { requiredKeys }) => {
 
   const hasMissingData = !isEmpty(missingData);
 
+  // Throw error when data is missing
   if (hasMissingData) {
     const missingDataLength = size(missingData);
     const errorMessage = JSON.stringify(missingData, null, 2);
