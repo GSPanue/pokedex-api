@@ -1,6 +1,7 @@
 import { join } from 'path';
 
-import { getFile, getData, processData, exportData } from '@scripts/utils';
+import { getData, processData, exportData } from '@scripts/utils';
+import { getFile } from '@scripts/shared';
 import type { Config } from '@scripts/shared';
 
 const filename: string = 'pokedex_data_04_2021.csv';
