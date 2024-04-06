@@ -13,21 +13,6 @@ import {
 
 import type { Config, PokemonData } from '@scripts/shared';
 
-type GetFileReturnType = Promise<string>;
-interface GetFile {
-  (path: Config['inputPath']): GetFileReturnType;
-}
-
-const getFile: GetFile = async (path) => {
-  try {
-    const file = await fs.readFile(path, 'utf8');
-
-    return file;
-  } catch (error) {
-    throw new Error(`Error reading file: ${error}`);
-  }
-};
-
 type GetDataReturnType = Promise<PokemonData[]>;
 interface GetData {
   (file: string, keys: Config['keys']): GetDataReturnType;
@@ -159,4 +144,4 @@ const exportData: ExportData = async (path, data) => {
   }
 };
 
-export { getFile, getData, processData, exportData };
+export { getData, processData, exportData };
