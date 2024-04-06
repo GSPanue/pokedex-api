@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import { Promise as QPromise } from 'q';
-import { parse } from 'papaparse';
+import { parse, unparse } from 'papaparse';
 import {
   pick,
   forOwn,
@@ -142,13 +142,21 @@ const processData: ProcessData = (data, { requiredKeys }) => {
   return data;
 };
 
-type ExportDataReturnType = void;
+type ExportDataReturnType = Promise<void>;
 interface ExportData {
-  (data: PokemonData[]): ExportDataReturnType;
+  (path: Config['outputPath'], data: PokemonData[]): ExportDataReturnType;
 }
 
-const exportData: ExportData = (data) => {
-  console.log(data);
+const exportData: ExportData = async (path, data) => {
+  try {
+    const unparsedData = unparse(data);
+
+    await fs.writeFile(path, unparsedData, 'utf8');
+
+    return;
+  } catch (error) {
+    throw new Error(`Error exporting data: ${error}`);
+  }
 };
 
 export { getFile, getData, processData, exportData };

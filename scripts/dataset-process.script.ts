@@ -39,7 +39,7 @@ const config: Config = {
 };
 
 const start = async () => {
-  const { inputPath, keys } = config;
+  const { inputPath, keys, outputPath } = config;
 
   try {
     console.log('Reading file...\n');
@@ -52,7 +52,7 @@ const start = async () => {
     const processedData = processData(data, keys);
 
     console.log('Exporting data...\n');
-    exportData(processedData);
+    await exportData(outputPath, data);
 
     const summary = {
       rows: processedData.length,
