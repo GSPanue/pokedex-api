@@ -141,4 +141,13 @@ const processData: ProcessData = (data, { requiredKeys }) => {
   return data;
 };
 
-export { getFile, getData, processData };
+type ExportDataReturnType = void;
+interface ExportData {
+  (data: PokemonData[]): ExportDataReturnType;
+}
+
+const exportData: ExportData = (data) => {
+  console.log(data);
+};
+
+export { getFile, getData, processData, exportData };
