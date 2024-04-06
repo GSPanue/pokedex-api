@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { getFile, getData, processData } from '@scripts/utils';
+import { getFile, getData, processData, exportData } from '@scripts/utils';
 import type { Config } from '@scripts/shared';
 
 const filename: string = 'pokedex_data_04_2021.csv';
@@ -51,8 +51,8 @@ const start = async () => {
     console.log('Processing data from file...\n');
     const processedData = processData(data, keys);
 
-    console.log('Exporting processed data...\n');
-    // exportData(processData);
+    console.log('Exporting data...\n');
+    exportData(processedData);
 
     const summary = {
       rows: processedData.length,
@@ -64,6 +64,7 @@ const start = async () => {
     );
   } catch (error) {
     console.error(error.message);
+    process.exit(1);
   }
 };
 
