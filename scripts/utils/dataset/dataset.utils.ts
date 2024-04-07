@@ -1,52 +1,8 @@
 import { promises as fs } from 'fs';
-import { Promise as QPromise } from 'q';
-import { parse, unparse } from 'papaparse';
-import {
-  pick,
-  forOwn,
-  isEmpty,
-  size,
-  isString,
-  isNull,
-  includes,
-} from 'lodash';
+import { unparse } from 'papaparse';
+import { forOwn, isEmpty, size, isString, isNull, includes } from 'lodash';
 
 import type { Config, PokemonData } from '@scripts/shared';
-
-type GetDataReturnType = Promise<PokemonData[]>;
-interface GetData {
-  (file: string, keys: Config['keys']): GetDataReturnType;
-}
-
-const getData: GetData = async (file, { selectedKeys }) => {
-  try {
-    const results = [];
-
-    const handleStep = ({ data }) => {
-      const keys = selectedKeys;
-
-      results.push(
-        // Pick all keys in `keys` from data
-        pick(data, keys),
-      );
-    };
-
-    await QPromise((resolve, reject) => {
-      // Parse file
-      parse(file, {
-        header: true,
-        dynamicTyping: true,
-        step: handleStep,
-        complete: resolve,
-        error: reject,
-      });
-    });
-
-    return results;
-  } catch (error) {
-    throw new Error(`Error retrieving data: ${error}`);
-  }
-};
 
 type TrimStringValuesReturnType = PokemonData;
 interface TrimStringValues {
@@ -144,4 +100,4 @@ const exportData: ExportData = async (path, data) => {
   }
 };
 
-export { getData, processData, exportData };
+export { processData, exportData };
