@@ -19,8 +19,8 @@ type PokemonDataKeys = keyof PokemonData;
 
 type Config = {
   keys: {
-    requiredKeys: Array<PokemonDataKeys>;
-    selectedKeys: Array<PokemonDataKeys>;
+    requiredKeys?: Array<PokemonDataKeys>;
+    selectedKeys?: Array<PokemonDataKeys>;
   };
   inputPath: string;
   outputPath: string;
