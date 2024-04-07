@@ -7,7 +7,6 @@ import type { Config } from '@scripts/shared';
 const filename: string = 'pokedex_data_04_2021.csv';
 
 const config: Config = {
-  filename,
   keys: {
     requiredKeys: [
       'pokedex_number',
