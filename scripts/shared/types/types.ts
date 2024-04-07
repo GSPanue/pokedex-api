@@ -18,7 +18,6 @@ type PokemonData = {
 type PokemonDataKeys = keyof PokemonData;
 
 type Config = {
-  filename: string;
   keys: {
     requiredKeys: Array<PokemonDataKeys>;
     selectedKeys: Array<PokemonDataKeys>;
