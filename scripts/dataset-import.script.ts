@@ -1,5 +1,6 @@
 import { join } from 'path';
 
+import { createDatabaseConnection } from '@scripts/utils';
 import { getFile, getData } from '@scripts/shared';
 import type { Config } from '@scripts/shared';
 
@@ -30,15 +31,22 @@ const config: Partial<Config> = {
 const start = async () => {
   const { inputPath, keys } = config;
 
-  console.log('Reading file...\n');
-  const file = await getFile(inputPath);
+  try {
+    console.log('Reading file...\n');
+    const file = await getFile(inputPath);
 
-  console.log('Retrieving data from file...\n');
-  const data = await getData(file, keys);
+    console.log('Retrieving data from file...\n');
+    const data = await getData(file, keys);
 
-  // Store data in a MySQL database
+    console.log('Connecting to database...\n');
+    const client = createDatabaseConnection();
+    await client.connect();
 
-  console.log(data);
+    await client.end();
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
 };
 
 start();
