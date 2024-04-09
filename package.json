@@ -10,7 +10,7 @@
     "data:process": "ts-node ./scripts/dataset-process.script.ts",
     "data:import": "ts-node ./scripts/dataset-import.script.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "npm start:dev",
+    "start": "npm run start:dev",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
