@@ -21,7 +21,8 @@
       "@dataset/raw": ["dataset/raw"],
       "@dataset/processed": ["dataset/processed"],
       "@scripts/utils": ["scripts/utils"],
-      "@scripts/shared": ["scripts/shared"]
+      "@scripts/shared": ["scripts/shared"],
+      "@shared/*": ["src/shared/*"]
     }
   },
   "ts-node": {
