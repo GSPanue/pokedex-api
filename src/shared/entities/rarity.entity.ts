@@ -1,10 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 
 @Entity()
+@Unique(['level'])
 export class Rarity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   level: string;
 }

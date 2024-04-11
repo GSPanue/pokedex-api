@@ -1,4 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+
+import { Rarity } from './rarity.entity';
+import { Species } from './species.entity';
+import { Type } from './type.entity';
+import { Height } from './height.entity';
+import { Weight } from './weight.entity';
+import { Ability } from './ability.entity';
+import { Generation } from './generation.entity';
+import { Name } from './name.entity';
 
 @Entity()
 export class Pokemon {
@@ -8,42 +24,37 @@ export class Pokemon {
   @Column()
   pokedex_id: number;
 
-  @Column()
-  english_name_id: number;
+  @OneToOne(() => Name)
+  @JoinColumn()
+  name: Name;
 
-  @Column()
-  german_name_id: number;
+  @ManyToOne(() => Generation)
+  generation: Generation;
 
-  @Column()
-  japanese_name_id: number;
+  @ManyToOne(() => Rarity)
+  rarity: Rarity;
 
-  @Column()
-  generation_id: number;
+  @ManyToOne(() => Species)
+  species: Species;
 
-  @Column()
-  rarity_id: number;
+  @ManyToOne(() => Type)
+  type1: Type;
 
-  @Column()
-  species_id: number;
+  @ManyToOne(() => Type)
+  type2: Type;
 
-  @Column()
-  type_1_id: number;
+  @ManyToOne(() => Height)
+  height: Height;
 
-  @Column()
-  type_2_id: number;
+  @ManyToOne(() => Weight)
+  weight: Weight;
 
-  @Column()
-  height_id: number;
+  @ManyToOne(() => Ability)
+  ability1: Ability;
 
-  @Column()
-  weight_id: number;
+  @ManyToOne(() => Ability)
+  ability2: Ability;
 
-  @Column()
-  ability_1_id: number;
-
-  @Column()
-  ability_2_id: number;
-
-  @Column()
-  ability_hidden_id: number;
+  @ManyToOne(() => Ability)
+  ability_hidden: Ability;
 }

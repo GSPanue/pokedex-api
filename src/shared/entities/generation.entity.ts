@@ -1,11 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 
 @Entity()
-@Unique(['kg'])
-export class Weight {
+@Unique(['number'])
+export class Generation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('decimal', { precision: 8, scale: 2 })
-  kg: number;
+  @Column()
+  number: number;
 }
