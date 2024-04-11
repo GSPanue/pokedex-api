@@ -2,32 +2,38 @@ import { Module } from '@nestjs/common';
 
 import {
   Pokemon,
-  EnglishName,
-  JapaneseName,
-  GermanName,
-  Types,
-  Generations,
+  Name,
+  Type,
+  Generation,
   Height,
   Rarity,
   Weight,
   Species,
-  Abilities,
+  Ability,
 } from '@shared/entities';
 
 @Module({
-  providers: [],
-  exports: [
+  providers: [
     Pokemon,
-    EnglishName,
-    JapaneseName,
-    GermanName,
-    Types,
-    Generations,
+    Name,
+    Type,
+    Generation,
     Height,
     Rarity,
     Weight,
     Species,
-    Abilities,
+    Ability,
+  ],
+  exports: [
+    Pokemon,
+    Name,
+    Type,
+    Generation,
+    Height,
+    Rarity,
+    Weight,
+    Species,
+    Ability,
   ],
 })
 export class SharedModule {}
