@@ -9,7 +9,7 @@ const {
   DB_PORT: port,
 } = process.env;
 
-export const AppDataSource = new DataSource({
+export const AppDataSource: DataSource = new DataSource({
   type: 'postgres',
   host,
   port: Number(port),
@@ -20,3 +20,5 @@ export const AppDataSource = new DataSource({
   logging: false,
   entities: ['src/shared/entities/*.entity.ts'],
 });
+
+export type { DataSource };
