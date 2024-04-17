@@ -1,5 +1,7 @@
 export * from './pokemon.entity';
 export * from './name.entity';
+export * from './japanese_name.entity';
+export * from './german_name.entity';
 export * from './type.entity';
 export * from './generation.entity';
 export * from './height.entity';
