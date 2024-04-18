@@ -32,22 +32,6 @@ const createDatabaseConnection: CreateDatabaseConnection = async () => {
   }
 };
 
-/**
- * Import Data
- *
- * 1. Iterate over data
- * 1a. Insert Japanese and German name, creating Japanese_Name and German_Name entity
- * 1b. Apply Japanese and German name to Name entity
- * 1c. Insert and create remaining entities
- * 1d. Create Pokemon entity
- * 1e. Insert Pokemon entity
- *
- * Notes:
- *
- * - Ensure no duplicates are inserted
- * - Handle errors, namely unique key errors
- *
- */
 type ImportDataReturnType = Promise<void>;
 interface ImportData {
   (db: DataSourceType, data: PokemonData[]): ImportDataReturnType;
@@ -111,7 +95,6 @@ const importData: ImportData = async (db, data) => {
       await weightRepository.upsert(weight, ['kg']);
 
       // Import Pokemon
-
       const pokemon = new Pokemon(
         datum['pokedex_number'],
         name,
