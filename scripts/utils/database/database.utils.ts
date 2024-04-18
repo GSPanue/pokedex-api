@@ -129,7 +129,7 @@ const importData: ImportData = async (db, data) => {
 
       const pokemonRepository = db.getRepository(Pokemon);
 
-      await pokemonRepository.insert(pokemon);
+      await pokemonRepository.upsert(pokemon, ['name']);
     }
   } catch (error) {
     throw new Error(`Error importing data: ${error}`);
