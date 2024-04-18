@@ -1,24 +1,139 @@
-import { Client } from 'pg';
-import 'dotenv/config';
+import { AppDataSource as DataSource } from '@shared/db/data-source';
+import {
+  Pokemon,
+  Name,
+  JapaneseName,
+  GermanName,
+  Generation,
+  Rarity,
+  Species,
+  Ability,
+  Type,
+  Height,
+  Weight,
+} from '@shared/entities';
+import { filter, isNull } from 'lodash';
 
-const createDatabaseConnection = () => {
-  const {
-    DB_USER: user,
-    DB_PASSWORD: password,
-    DB_HOST: host,
-    DB_NAME: database,
-    DB_PORT: port,
-  } = process.env;
+import type { DataSource as DataSourceType } from '@shared/db/data-source';
+import type { PokemonData } from '@scripts/shared';
 
-  const client = new Client({
-    user,
-    password,
-    host,
-    database,
-    port,
-  });
+type CreateDatabaseConnectionReturnType = Promise<DataSourceType>;
+interface CreateDatabaseConnection {
+  (): CreateDatabaseConnectionReturnType;
+}
 
-  return client;
+const createDatabaseConnection: CreateDatabaseConnection = async () => {
+  try {
+    const client = await DataSource.initialize();
+
+    return client;
+  } catch (error) {
+    throw new Error(`Error connecting to database: ${error}`);
+  }
 };
 
-export { createDatabaseConnection };
+/**
+ * Import Data
+ *
+ * 1. Iterate over data
+ * 1a. Insert Japanese and German name, creating Japanese_Name and German_Name entity
+ * 1b. Apply Japanese and German name to Name entity
+ * 1c. Insert and create remaining entities
+ * 1d. Create Pokemon entity
+ * 1e. Insert Pokemon entity
+ *
+ * Notes:
+ *
+ * - Ensure no duplicates are inserted
+ * - Handle errors, namely unique key errors
+ *
+ */
+type ImportDataReturnType = Promise<void>;
+interface ImportData {
+  (db: DataSourceType, data: PokemonData[]): ImportDataReturnType;
+}
+
+const importData: ImportData = async (db, data) => {
+  try {
+    data.forEach(async (datum) => {
+      // Import Japanese & German names
+      const japaneseName = new JapaneseName(datum['japanese_name']);
+      const germanName = new GermanName(datum['german_name']);
+
+      const japaneseNameRepository = db.getRepository(JapaneseName);
+      const germanNameRepository = db.getRepository(GermanName);
+
+      await japaneseNameRepository.upsert(japaneseName, ['name']);
+      await germanNameRepository.upsert(germanName, ['name']);
+
+      // Import English names
+      const name = new Name(datum['name'], japaneseName, germanName);
+
+      const nameRepository = db.getRepository(Name);
+
+      await nameRepository.upsert(name, ['name']);
+
+      // Import Generation, Rarity, Species, Ability, Type, Height & Weight
+      const generation = new Generation(datum['generation']);
+      const rarity = new Rarity(datum['status']);
+      const species = new Species(datum['species']);
+      const ability1 = new Ability(datum['ability_1']);
+      const ability2 = new Ability(datum['ability_2']);
+      const abilityHidden = new Ability(datum['ability_hidden']);
+      const type1 = new Type(datum['type_1']);
+      const type2 = new Type(datum['type_2']);
+      const height = new Height(datum['height_m']);
+      const weight = new Weight(datum['weight_kg']);
+
+      const generationRepository = db.getRepository(Generation);
+      const rarityRepository = db.getRepository(Rarity);
+      const speciesRepository = db.getRepository(Species);
+      const abilityRepository = db.getRepository(Ability);
+      const typeRepository = db.getRepository(Type);
+      const heightRepository = db.getRepository(Height);
+      const weightRepository = db.getRepository(Weight);
+
+      await generationRepository.upsert(generation, ['number']);
+      await rarityRepository.upsert(rarity, ['level']);
+      await speciesRepository.upsert(species, ['name']);
+      await abilityRepository.upsert(
+        filter(
+          [ability1, ability2, abilityHidden],
+          ({ name }) => !isNull(name),
+        ),
+        ['name'],
+      );
+      await typeRepository.upsert(
+        filter([type1, type2], ({ element }) => !isNull(element)),
+        ['element'],
+      );
+      await heightRepository.upsert(height, ['metres']);
+      await weightRepository.upsert(weight, ['kg']);
+
+      // Import Pokemon
+
+      const pokemon = new Pokemon(
+        datum['pokedex_number'],
+        name,
+        generation,
+        rarity,
+        species,
+        type1,
+        type2,
+        height,
+        weight,
+        ability1,
+        ability2,
+        abilityHidden,
+      );
+
+      const pokemonRepository = db.getRepository(Pokemon);
+
+      await pokemonRepository.insert(pokemon);
+    });
+  } catch (error) {
+    throw new Error(`Error importing data: ${error}`);
+  }
+};
+
+export { createDatabaseConnection, importData };
