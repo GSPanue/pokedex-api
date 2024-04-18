@@ -1,18 +1,36 @@
-import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  Unique,
+} from 'typeorm';
+
 import { JapaneseName } from './japanese_name.entity';
 import { GermanName } from './german_name.entity';
 
 @Entity()
+@Unique(['name'])
 export class Name {
-  @PrimaryColumn()
+  constructor(
+    name: string,
+    japaneseName: JapaneseName,
+    germanName: GermanName,
+  ) {
+    this.name = name;
+    this.japanese_name = japaneseName;
+    this.german_name = germanName;
+  }
+
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
   @ManyToOne(() => JapaneseName)
-  japaneseName: JapaneseName;
+  japanese_name: JapaneseName;
 
   @ManyToOne(() => GermanName)
-  germanName: GermanName;
+  german_name: GermanName;
 }

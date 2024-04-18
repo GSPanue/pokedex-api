@@ -18,6 +18,34 @@ import { Name } from './name.entity';
 
 @Entity()
 export class Pokemon {
+  constructor(
+    pokedexId: number,
+    name: Name,
+    generation: Generation,
+    rarity: Rarity,
+    species: Species,
+    type1: Type,
+    type2: Type,
+    height: Height,
+    weight: Weight,
+    ability1: Ability,
+    ability2: Ability,
+    abilityHidden: Ability,
+  ) {
+    this.pokedex_id = pokedexId;
+    this.name = name;
+    this.generation = generation;
+    this.rarity = rarity;
+    this.species = species;
+    this.type_1 = type1;
+    this.type_2 = type2;
+    this.height = height;
+    this.weight = weight;
+    this.ability_1 = ability1;
+    this.ability_2 = ability2;
+    this.ability_hidden = abilityHidden;
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -38,10 +66,10 @@ export class Pokemon {
   species: Species;
 
   @ManyToOne(() => Type)
-  type1: Type;
+  type_1: Type;
 
   @ManyToOne(() => Type)
-  type2: Type;
+  type_2: Type;
 
   @ManyToOne(() => Height)
   height: Height;
@@ -50,10 +78,10 @@ export class Pokemon {
   weight: Weight;
 
   @ManyToOne(() => Ability)
-  ability1: Ability;
+  ability_1: Ability;
 
   @ManyToOne(() => Ability)
-  ability2: Ability;
+  ability_2: Ability;
 
   @ManyToOne(() => Ability)
   ability_hidden: Ability;
