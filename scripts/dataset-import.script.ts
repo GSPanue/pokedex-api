@@ -1,7 +1,8 @@
 import { join } from 'path';
 
-import { createDatabaseConnection } from '@scripts/utils';
+import { createDatabaseConnection, importData } from '@scripts/utils';
 import { getFile, getData } from '@scripts/shared';
+
 import type { Config } from '@scripts/shared';
 
 const filename: string = 'pokedex_data_04_2021.csv';
@@ -39,10 +40,14 @@ const start = async () => {
     const data = await getData(file, keys);
 
     console.log('Connecting to database...\n');
-    const client = createDatabaseConnection();
-    await client.connect();
+    const db = await createDatabaseConnection();
 
-    await client.end();
+    console.log('Connected.\n');
+
+    console.log('Importing data...\n');
+    await importData(db, data);
+
+    console.log('Successfully imported Pokedex data');
   } catch (error) {
     console.error(error.message);
     process.exit(1);
