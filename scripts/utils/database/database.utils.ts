@@ -55,7 +55,7 @@ interface ImportData {
 
 const importData: ImportData = async (db, data) => {
   try {
-    data.forEach(async (datum) => {
+    for (const datum of data) {
       // Import Japanese & German names
       const japaneseName = new JapaneseName(datum['japanese_name']);
       const germanName = new GermanName(datum['german_name']);
@@ -130,7 +130,7 @@ const importData: ImportData = async (db, data) => {
       const pokemonRepository = db.getRepository(Pokemon);
 
       await pokemonRepository.insert(pokemon);
-    });
+    }
   } catch (error) {
     throw new Error(`Error importing data: ${error}`);
   }
