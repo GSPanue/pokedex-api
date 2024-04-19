@@ -45,6 +45,8 @@ const start = async () => {
     console.log('Importing data...\n');
     await importData(db, data);
 
+    await db.destroy();
+
     console.log('Successfully imported Pokedex data.');
     process.exit();
   } catch (error) {
