@@ -42,12 +42,11 @@ const start = async () => {
     console.log('Connecting to database...\n');
     const db = await createDatabaseConnection();
 
-    console.log('Connected.\n');
-
     console.log('Importing data...\n');
     await importData(db, data);
 
-    console.log('Successfully imported Pokedex data');
+    console.log('Successfully imported Pokedex data.');
+    process.exit();
   } catch (error) {
     console.error(error.message);
     process.exit(1);

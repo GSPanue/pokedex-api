@@ -63,6 +63,7 @@ const start = async () => {
     console.log(
       `Successfully processed ${summary.rows} row(s).\n\nExported data can be located in: ${summary.output}\n`,
     );
+    process.exit();
   } catch (error) {
     console.error(error.message);
     process.exit(1);
