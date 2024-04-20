@@ -4,19 +4,47 @@
 A RESTful Pokédex API
 </div>
 
+## Table of Contents
+
+1. [Stack](#stack)
+2. [Features](#features)
+3. [Getting Started](#getting-started)
+    1. [Installing the Dependencies](#1-install-the-dependencies)
+    2. [Process & Import the Pokédex Dataset](#2-process--import-the-pokédex-dataset)
+    3. [Start the Server](#3-start-the-server)
+4. [Testing & Debugging](#testing--debugging)
+    1. [Testing](#testing)
+    2. [Debugging](#debugging)
+5. [Building the Project](#building-the-project)
+6. [Version](#version)
+7. [Author](#author)
+
+## Stack
+
+- TypeScript
+- PostgreSQL
+- TypeORM
+- NestJS
+
+## Features
+
+- Third normal form (3NF) database schema
+- Dataset processing script located in `scripts` which cleans the dataset and produces a new dataset in `dataset/processed`
+- Dataset importing script located in `scripts` which imports the processed dataset in `dataset/processed` into a PostgreSQL database
+
 ## Getting Started
 
-### 1. Install dependencies
+### 1. Install the Dependencies
 
-You'll need to install the project dependencies before you can start the server
+You'll need to install the project dependencies before you can start the server:
 
 ```bash
 $ npm install
 ```
 
-### 2. Process & Import Pokédex Dataset
+### 2. Process & Import the Pokédex Dataset
 
-After installing the project dependencies, process and import the dataset into the Pokédex database
+After installing the project dependencies, process and import the dataset into the Pokédex database:
 
 ```bash
 # Process the dataset
@@ -28,7 +56,7 @@ $ npm run data:import
 
 ### 3. Start the Server
 
-You can start the server in various modes
+You can start the server in various modes:
 
 ```bash
 # Start the server in Development mode
@@ -72,7 +100,7 @@ $ npm run test:debug
 
 ## Building the Project
 
-To build the production bundle, run the following command
+To build the production bundle, run the following command:
 
 ```bash
 $ npm run build
