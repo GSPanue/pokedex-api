@@ -6,7 +6,7 @@ A RESTful Pokédex API
 
 ## Getting Started
 
-### Installation
+### 1. Install dependencies
 
 You'll need to install the project dependencies before you can start the server
 
@@ -14,9 +14,21 @@ You'll need to install the project dependencies before you can start the server
 $ npm install
 ```
 
-### Starting the Server
+### 2. Process & Import Pokédex Dataset
 
-After installing the project dependencies, you can start the server in various modes
+After installing the project dependencies, process and import the dataset into the Pokédex database
+
+```bash
+# Process the dataset
+$ npm run data:process
+
+# Import the dataset
+$ npm run data:import
+```
+
+### 3. Start the Server
+
+You can start the server in various modes
 
 ```bash
 # Start the server in Development mode
