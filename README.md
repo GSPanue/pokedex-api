@@ -32,6 +32,102 @@ A RESTful Pokédex API
 - Dataset processing script located in `scripts` which cleans the dataset and produces a new dataset in `dataset/processed`
 - Dataset importing script located in `scripts` which imports the processed dataset in `dataset/processed` into a PostgreSQL database
 
+## Design
+
+### 1. Database Schema
+
+#### Table: Pokemon
+
+| Name              | Data Type            | Nullable |
+| ----------------- | -------------------- | -------- |
+| id (primary)      | int (auto_increment) | No       |
+| pokedex_id        | int                  | No       |
+| name_id           | int                  | No       |
+| generation_id     | int                  | No       |
+| rarity_id         | int                  | No       |
+| species_id        | int                  | No       |
+| type_1_id         | int                  | No       |
+| type_2_id         | int                  | Yes      |
+| height_id         | int                  | No       |
+| weight_id         | int                  | No       |
+| ability_1_id      | int                  | Yes      |
+| ability_2_id      | int                  | Yes      |
+| ability_hidden_id | int                  | Yes      |
+
+#### Table: Name
+
+| Name             | Data Type            | Nullable |
+| ---------------- | -------------------- | -------- |
+| id (primary)     | int (auto_increment) | No       |
+| name             | varchar              | No       |
+| japanese_name_id | int                  | No       |
+| german_name_id   | int                  | No       |
+
+#### Table: Japanese_Name
+
+| Name         | Data Type            | Nullable |
+| ------------ | -------------------- | -------- |
+| id (primary) | int (auto_increment) | No       |
+| name         | varchar              | No       |
+
+#### Table: German_Name
+
+| Name         | Data Type            | Nullable |
+| ------------ | -------------------- | -------- |
+| id (primary) | int (auto_increment) | No       |
+| name         | varchar              | No       |
+
+#### Table: Generations
+
+| Name         | Data Type            | Nullable |
+| ------------ | -------------------- | -------- |
+| id (primary) | int (auto_increment) | No       |
+| number       | int                  | No       |
+
+#### Table: Rarity
+
+| Name         | Data Type            | Nullable |
+| ------------ | -------------------- | -------- |
+| id (primary) | int (auto_increment) | No       |
+| level        | varchar              | No       |
+
+#### Table: Species
+
+| Name         | Data Type            | Nullable |
+| ------------ | -------------------- | -------- |
+| id (primary) | int (auto_increment) | No       |
+| name         | varchar              | No       |
+
+#### Table: Abilities
+
+| Name         | Data Type            | Nullable |
+| ------------ | -------------------- | -------- |
+| id (primary) | int (auto_increment) | No       |
+| name         | varchar              | No       |
+
+#### Table: Types
+
+| Name         | Data Type            | Nullable |
+| ------------ | -------------------- | -------- |
+| id (primary) | int (auto_increment) | No       |
+| element      | varchar              | No       |
+
+#### Table: Height
+
+| Name         | Data Type            | Nullable |
+| ------------ | -------------------- | -------- |
+| id (primary) | int (auto_increment) | No       |
+| metres       | numeric(8, 2)        | No       |
+
+#### Table: Weight
+
+| Name         | Data Type            | Nullable |
+| ------------ | -------------------- | -------- |
+| id (primary) | int (auto_increment) | No       |
+| kg           | numeric(8, 2)        | No       |
+
+### 2. API Contract
+
 ## Getting Started
 
 ### 1. Install the Dependencies
