@@ -6,8 +6,11 @@ A RESTful Pokédex API
 
 ## Table of Contents
 
-1. [Stack](#stack)
-2. [Features](#features)
+1. [Features](#features)
+2. [Design](#design)
+    1. [Stack](#1-stack)
+    2. [Database Schema](#2-database-schema)
+    3. [API Contract](#3-api-contract)
 3. [Getting Started](#getting-started)
     1. [Installing the Dependencies](#1-install-the-dependencies)
     2. [Process & Import the Pokédex Dataset](#2-process--import-the-pokédex-dataset)
@@ -19,13 +22,6 @@ A RESTful Pokédex API
 6. [Version](#version)
 7. [Author](#author)
 
-## Stack
-
-- TypeScript
-- PostgreSQL
-- TypeORM
-- NestJS
-
 ## Features
 
 - Third normal form (3NF) database schema
@@ -34,7 +30,14 @@ A RESTful Pokédex API
 
 ## Design
 
-### 1. Database Schema
+### 1. Stack
+
+- TypeScript
+- PostgreSQL
+- TypeORM
+- NestJS
+
+### 2. Database Schema
 
 #### Table: Pokemon
 
@@ -126,7 +129,7 @@ A RESTful Pokédex API
 | id (primary) | int (auto_increment) | No       |
 | kg           | numeric(8, 2)        | No       |
 
-### 2. API Contract
+### 3. API Contract
 
 ## Getting Started
 
