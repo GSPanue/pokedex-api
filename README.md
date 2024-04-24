@@ -1,4 +1,4 @@
-<h1 align="center">Pokedex API</h1>
+<h1 align="center">Pokédex API</h1>
 
 <div align="center">
 A RESTful Pokédex API
@@ -8,9 +8,9 @@ A RESTful Pokédex API
 
 1. [Features](#features)
 2. [Design](#design)
-    1. [Stack](#1-stack)
-    2. [Database Schema](#2-database-schema)
-    3. [API Contract](#3-api-contract)
+    1. [Stack](#stack)
+    2. [Database Schema](#database-schema)
+    3. [API Contract](#api-contract)
 3. [Getting Started](#getting-started)
     1. [Installing the Dependencies](#1-install-the-dependencies)
     2. [Process & Import the Pokédex Dataset](#2-process--import-the-pokédex-dataset)
