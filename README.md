@@ -77,7 +77,7 @@ A RESTful Pokédex API
 | id (primary) | int (auto_increment) | No       |
 | name         | varchar              | No       |
 
-#### Table: Generations
+#### Table: Generation
 
 | Name         | Data Type            | Nullable |
 | ------------ | -------------------- | -------- |
@@ -98,14 +98,14 @@ A RESTful Pokédex API
 | id (primary) | int (auto_increment) | No       |
 | name         | varchar              | No       |
 
-#### Table: Abilities
+#### Table: Ability
 
 | Name         | Data Type            | Nullable |
 | ------------ | -------------------- | -------- |
 | id (primary) | int (auto_increment) | No       |
 | name         | varchar              | No       |
 
-#### Table: Types
+#### Table: Type
 
 | Name         | Data Type            | Nullable |
 | ------------ | -------------------- | -------- |
