@@ -10,6 +10,6 @@ export class Type {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   element: string;
 }

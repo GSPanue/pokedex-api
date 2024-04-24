@@ -10,6 +10,6 @@ export class Generation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   number: number;
 }

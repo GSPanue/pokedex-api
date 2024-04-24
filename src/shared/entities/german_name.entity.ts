@@ -10,6 +10,6 @@ export class GermanName {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   name: string;
 }

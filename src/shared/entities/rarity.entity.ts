@@ -10,6 +10,6 @@ export class Rarity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   level: string;
 }

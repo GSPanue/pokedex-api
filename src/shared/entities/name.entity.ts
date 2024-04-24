@@ -25,12 +25,12 @@ export class Name {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   name: string;
 
-  @ManyToOne(() => JapaneseName)
+  @ManyToOne(() => JapaneseName, { nullable: false })
   japanese_name: JapaneseName;
 
-  @ManyToOne(() => GermanName)
+  @ManyToOne(() => GermanName, { nullable: false })
   german_name: GermanName;
 }

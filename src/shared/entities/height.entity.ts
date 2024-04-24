@@ -10,6 +10,6 @@ export class Height {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('decimal', { precision: 8, scale: 2 })
+  @Column('decimal', { nullable: false, precision: 8, scale: 2 })
   metres: number;
 }

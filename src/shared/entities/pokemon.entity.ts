@@ -49,40 +49,43 @@ export class Pokemon {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   pokedex_id: number;
 
-  @OneToOne(() => Name)
-  @JoinColumn()
+  @Column({ nullable: false })
+  name_id: number;
+
+  @OneToOne(() => Name, { nullable: false })
+  @JoinColumn({ name: 'name_id' })
   name: Name;
 
-  @ManyToOne(() => Generation)
+  @ManyToOne(() => Generation, { nullable: false })
   generation: Generation;
 
-  @ManyToOne(() => Rarity)
+  @ManyToOne(() => Rarity, { nullable: false })
   rarity: Rarity;
 
-  @ManyToOne(() => Species)
+  @ManyToOne(() => Species, { nullable: false })
   species: Species;
 
-  @ManyToOne(() => Type)
+  @ManyToOne(() => Type, { nullable: false })
   type_1: Type;
 
-  @ManyToOne(() => Type)
+  @ManyToOne(() => Type, { nullable: true })
   type_2: Type;
 
-  @ManyToOne(() => Height)
+  @ManyToOne(() => Height, { nullable: false })
   height: Height;
 
-  @ManyToOne(() => Weight)
+  @ManyToOne(() => Weight, { nullable: false })
   weight: Weight;
 
-  @ManyToOne(() => Ability)
+  @ManyToOne(() => Ability, { nullable: true })
   ability_1: Ability;
 
-  @ManyToOne(() => Ability)
+  @ManyToOne(() => Ability, { nullable: true })
   ability_2: Ability;
 
-  @ManyToOne(() => Ability)
+  @ManyToOne(() => Ability, { nullable: true })
   ability_hidden: Ability;
 }
