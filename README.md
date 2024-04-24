@@ -30,14 +30,14 @@ A RESTful Pokédex API
 
 ## Design
 
-### 1. Stack
+### Stack
 
 - TypeScript
 - PostgreSQL
 - TypeORM
 - NestJS
 
-### 2. Database Schema
+### Database Schema
 
 #### Table: Pokemon
 
@@ -129,7 +129,7 @@ A RESTful Pokédex API
 | id (primary) | int (auto_increment) | No       |
 | kg           | numeric(8, 2)        | No       |
 
-### 3. API Contract
+### API Contract
 
 ## Getting Started
 
