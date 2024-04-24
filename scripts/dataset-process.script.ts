@@ -12,7 +12,10 @@ const config: Config = {
     requiredKeys: [
       'pokedex_number',
       'name',
+      'japanese_name',
+      'german_name',
       'generation',
+      'status',
       'species',
       'type_1',
       'height_m',
