@@ -37,6 +37,12 @@ A RESTful Pokédex API
 - TypeORM
 - NestJS
 
+### Dataset
+
+The project makes use of a dataset compiled by Mario Tormo Romero on [Kaggle](https://kaggle.com), encompassing data on 1045 Pokémon, including various forms, up to the 8th generation.
+
+Source: [Complete Pokémon Dataset (Updated 16.04.21)](https://www.kaggle.com/datasets/mariotormo/complete-pokemon-dataset-updated-090420)
+
 ### Database Schema
 
 #### Table: Pokemon
