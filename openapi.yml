@@ -1,0 +1,225 @@
+openapi: '3.0.3'
+info:
+  title: Pokédex API Specification
+  description: The Pokédex API provides a set of endpoints for accessing data related to Pokémon characters. Users can retrieve various attributes of Pokémon, including their name, generation, height, weight, abilities, rarity, and more.
+  version: '1.0'
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local Development Server
+paths:
+  /pokedex:
+    get:
+      summary: Get a list of Pokémon entries in the Pokédex
+      operationId: getPokemon
+      tags:
+        - Pokédex API
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+        - $ref: '#/components/parameters/Name'
+        - $ref: '#/components/parameters/Generation'
+        - $ref: '#/components/parameters/Rarity'
+        - $ref: '#/components/parameters/Species'
+        - $ref: '#/components/parameters/Ability'
+        - $ref: '#/components/parameters/Type'
+        - $ref: '#/components/parameters/Height'
+        - $ref: '#/components/parameters/Weight'
+      responses:
+        '200':
+          description: OK
+  /pokedex/{id}:
+    get:
+      summary: Get information about all Pokémon entries with the specified Pokédex ID
+      operationId: getPokemonById
+      tags:
+        - Pokédex API
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    Id:
+      description: The ID of the Pokémon entry in the Pokédex
+      type: integer
+      format: int32
+      example: 1
+    Limit:
+      description: The number of Pokémon entries to retrieve in a single request
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 100
+      default: 10
+      example: 10
+    Offset:
+      description: The starting point from which Pokémon entries should be retrieved
+      type: integer
+      format: int32
+      minimum: 0
+      default: 0
+      example: 1
+    Sort:
+      description: The name of the attribute to sort
+      type: string
+      example: generation
+    Order:
+      description: The order in which the entries should be sorted
+      type: string
+      example: asc
+      enum:
+        - asc
+        - desc
+    Name:
+      description: The name of the Pokémon
+      type: string
+      example: Pikachu
+    Generation:
+      description: The generation of the Pokémon
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 8
+      example: 1
+    Rarity:
+      description: The rarity of the Pokémon
+      type: string
+      example: Legendary
+      enum:
+        - Normal
+        - Sub Legendary
+        - Legendary
+        - Mythical
+    Species:
+      description: The species of the Pokémon
+      type: string
+      example: Seed Pokémon
+    Ability:
+      description: The ability of the Pokémon
+      type: string
+      example: Overgrow
+    Type:
+      description: The type of the Pokémon
+      type: string
+      example: Grass
+    Height:
+      description: The height of the Pokémon in metres
+      type: number
+      example: '0.70'
+    Weight:
+      description: The weight of the Pokémon in kilograms
+      type: number
+      example: '6.90'
+  parameters:
+    Id:
+      name: id
+      in: path
+      description: The ID of the Pokémon entry in the Pokédex
+      required: true
+      schema:
+        $ref: '#/components/schemas/Id'
+    Limit:
+      name: limit
+      in: query
+      description: How many Pokémon should be retrieved in a single request
+      required: false
+      schema:
+        $ref: '#/components/schemas/Limit'
+    Offset:
+      name: offset
+      in: query
+      description: How far into the list of Pokémon should the response start
+      required: false
+      schema:
+        $ref: '#/components/schemas/Offset'
+    Sort:
+      name: sort
+      in: query
+      description: The attribute by which the list of Pokémon should be sorted
+      required: false
+      schema:
+        $ref: '#/components/schemas/Sort'
+    Order:
+      name: order
+      in: query
+      description: Specifies the order in which the list of Pokémon should be sorted
+      required: false
+      schema:
+        $ref: '#/components/schemas/Order'
+    Name:
+      name: name
+      in: query
+      description: Specifies the name of the Pokémon to retrieve
+      required: false
+      schema:
+        $ref: '#/components/schemas/Name'
+    Generation:
+      name: generation
+      in: query
+      description: |
+        Specifies the generation of Pokémon to retrieve
+
+        _Supports_ : =, !=, <, <=, >, >=
+      required: false
+      schema:
+        $ref: '#/components/schemas/Generation'
+    Rarity:
+      name: rarity
+      in: query
+      description: Specifies the rarity of Pokémon to retrieve
+      required: false
+      schema:
+        $ref: '#/components/schemas/Rarity'
+    Species:
+      name: species
+      in: query
+      description: |
+        Specifies the species of Pokémon to retrieve
+
+        _Supports_ : =, !=
+      required: false
+      schema:
+        $ref: '#/components/schemas/Species'
+    Ability:
+      name: ability
+      in: query
+      description: |
+        Specifies the ability of Pokémon to retrieve
+        
+        _Supports_ : =, !=
+      required: false
+      schema:
+        $ref: '#/components/schemas/Ability'
+    Type:
+      name: type
+      in: query
+      description: |
+        Specifies the type of Pokémon to retrieve
+
+        _Supports_ : =, !=
+      required: false
+      schema:
+        $ref: '#/components/schemas/Type'
+    Height:
+      name: Height
+      in: query
+      description: |
+        Specifies the height of Pokémon to retrieve
+
+        _Supports_ : =, !=, <, <=, >, >=
+      required: false
+      schema:
+        $ref: '#/components/schemas/Height'
+    Weight:
+      name: Weight
+      in: query
+      description: |
+        Specifies the weight of Pokémon to retrieve
+
+        _Supports_ : =, !=, <, <=, >, >=
+      required: false
+      schema:
+        $ref: '#/components/schemas/Weight'
