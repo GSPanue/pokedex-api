@@ -10,7 +10,7 @@ A RESTful Pokédex API
 2. [Design](#design)
     1. [Stack](#stack)
     2. [Database Schema](#database-schema)
-    3. [API Contract](#api-contract)
+    3. [API Specification](#api-specification)
 3. [Getting Started](#getting-started)
     1. [Installing the Dependencies](#1-install-the-dependencies)
     2. [Process & Import the Pokédex Dataset](#2-process--import-the-pokédex-dataset)
@@ -135,7 +135,9 @@ Source: [Complete Pokémon Dataset (Updated 16.04.21)](https://www.kaggle.com/da
 | id (primary) | int (auto_increment) | No       |
 | kg           | numeric(8, 2)        | No       |
 
-### API Contract
+### API Specification
+
+The specification for the Pokédex API can be found [here](./openapi.yml).
 
 ## Getting Started
 
