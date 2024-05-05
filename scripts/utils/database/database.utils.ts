@@ -1,4 +1,4 @@
-import { AppDataSource as DataSource } from '@shared/db/data-source';
+import { AppDataSource as DataSource } from '@shared/db';
 import { all as QAll } from 'q';
 import {
   Pokemon,
@@ -15,7 +15,7 @@ import {
 } from '@shared/entities';
 import { filter, isNull, merge } from 'lodash';
 
-import type { DataSource as DataSourceType } from '@shared/db/data-source';
+import type { DataSource as DataSourceType } from '@shared/db';
 import type { PokemonData } from '@scripts/shared';
 
 type CreateDatabaseConnectionReturnType = Promise<DataSourceType>;
