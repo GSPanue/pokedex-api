@@ -96,7 +96,7 @@ components:
     Species:
       description: The species of the Pokémon
       type: string
-      example: Seed Pokémon
+      example: Seed
     Ability:
       description: The ability of the Pokémon
       type: string
