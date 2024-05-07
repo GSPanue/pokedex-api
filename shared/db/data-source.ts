@@ -19,7 +19,7 @@ const AppDataSource: DataSource = new DataSource({
   database,
   synchronize: true,
   logging: false,
-  entities: ['shared/entities/*.entity.ts'],
+  entities: ['src/entity/*.entity.ts'],
   namingStrategy: new SnakeNamingStrategy(),
 });
 
