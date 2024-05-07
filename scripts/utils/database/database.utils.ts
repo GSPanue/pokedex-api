@@ -1,4 +1,5 @@
-import { AppDataSource as DataSource } from '@shared/db';
+import { DataSource } from 'typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { all as QAll } from 'q';
 import {
   Pokemon,
@@ -14,9 +15,38 @@ import {
   Weight,
 } from '@entities';
 import { filter, isNull, merge } from 'lodash';
+import 'dotenv/config';
 
-import type { DataSource as DataSourceType } from '@shared/db';
+import type { DataSource as DataSourceType } from 'typeorm';
 import type { PokemonData } from '@scripts/shared';
+
+type CreateAppDataSourceReturnType = DataSource;
+interface CreateAppDataSource {
+  (): CreateAppDataSourceReturnType;
+}
+
+const createAppDataSource: CreateAppDataSource = () => {
+  const {
+    DB_USER: username,
+    DB_PASSWORD: password,
+    DB_HOST: host,
+    DB_NAME: database,
+    DB_PORT: port,
+  } = process.env;
+
+  return new DataSource({
+    type: 'postgres',
+    host,
+    port: Number(port),
+    username,
+    password,
+    database,
+    synchronize: true,
+    logging: false,
+    entities: ['src/entity/*.entity.ts'],
+    namingStrategy: new SnakeNamingStrategy(),
+  });
+};
 
 type CreateDatabaseConnectionReturnType = Promise<DataSourceType>;
 interface CreateDatabaseConnection {
@@ -25,7 +55,7 @@ interface CreateDatabaseConnection {
 
 const createDatabaseConnection: CreateDatabaseConnection = async () => {
   try {
-    const client = await DataSource.initialize();
+    const client = await createAppDataSource().initialize();
 
     return client;
   } catch (error) {
