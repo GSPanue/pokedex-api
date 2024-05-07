@@ -12,7 +12,7 @@ import {
   Type,
   Height,
   Weight,
-} from '@shared/entities';
+} from '@entities';
 import { filter, isNull, merge } from 'lodash';
 
 import type { DataSource as DataSourceType } from '@shared/db';
