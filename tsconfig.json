@@ -22,7 +22,6 @@
       "@dataset/processed": ["dataset/processed"],
       "@scripts/utils": ["scripts/utils"],
       "@scripts/shared": ["scripts/shared"],
-      "@shared/db": ["shared/db"],
       "@src/*": ["src/*"],
       "@entities": ["src/entity"]
     }
