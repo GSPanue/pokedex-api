@@ -23,7 +23,8 @@
       "@scripts/utils": ["scripts/utils"],
       "@scripts/shared": ["scripts/shared"],
       "@shared/*": ["shared/*"],
-      "@src/*": ["src/*"]
+      "@src/*": ["src/*"],
+      "@entities": ["src/entity"]
     }
   },
   "ts-node": {
