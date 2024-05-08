@@ -29,6 +29,21 @@ paths:
       responses:
         '200':
           description: OK
+        '400':
+          description: Unable to get a list of Pokémon due to invalid value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: '400'
+                message: 'Invalid value provided for the parameter "Limit". Please provide a value between 1 and 100.'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /pokedex/{id}:
     get:
       summary: Get information about all Pokémon entries with the specified Pokédex ID
@@ -40,6 +55,21 @@ paths:
       responses:
         '200':
           description: OK
+        '404':
+          description: Pokémon not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: '404'
+                message: 'Pokémon {id} not found'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
     Id:
@@ -113,6 +143,16 @@ components:
       description: The weight of the Pokémon in kilograms
       type: number
       example: '6.90'
+    ErrorResponse:
+      description: The response when an error occurs
+      type: object
+      properties:
+        status:
+          description: The HTTP Status Code
+          type: string
+        message:
+          description: The message detailing the error
+          type: string
   parameters:
     Id:
       name: id
