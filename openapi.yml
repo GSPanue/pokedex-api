@@ -153,6 +153,45 @@ components:
       description: The weight of the Pokémon in kilograms
       type: number
       example: '6.90'
+    PokemonItem:
+      description: The structured representation of a Pokémon entry in the Pokédex
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        name:
+          $ref: '#/components/schemas/Name'
+        german_name:
+          $ref: '#/components/schemas/German_Name'
+        japanese_name:
+          $ref: '#/components/schemas/Japanese_Name'
+        generation:
+          $ref: '#/components/schemas/Generation'
+        rarity:
+          $ref: '#/components/schemas/Rarity'
+        species:
+          $ref: '#/components/schemas/Species'
+        abilities:
+          type: object
+          properties:
+            ability_1:
+              $ref: '#/components/schemas/Ability'
+            ability_2:
+              $ref: '#/components/schemas/Ability'
+            ability_hidden:
+              $ref: '#/components/schemas/Ability'
+        types:
+          type: object
+          properties:
+            type_1:
+                $ref: '#/components/schemas/Type'
+            type_2:
+                $ref: '#/components/schemas/Type'
+        height:
+          $ref: '#/components/schemas/Height'
+        weight:
+          $ref: '#/components/schemas/Weight'
+        
     ErrorResponse:
       description: The response when an error occurs
       type: object
