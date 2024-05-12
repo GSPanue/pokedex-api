@@ -244,7 +244,7 @@ components:
       schema:
         $ref: '#/components/schemas/Type'
     Height:
-      name: Height
+      name: height
       in: query
       description: |
         Specifies the height of Pokémon to retrieve
@@ -254,7 +254,7 @@ components:
       schema:
         $ref: '#/components/schemas/Height'
     Weight:
-      name: Weight
+      name: weight
       in: query
       description: |
         Specifies the weight of Pokémon to retrieve
