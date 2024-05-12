@@ -184,14 +184,13 @@ components:
           type: object
           properties:
             type_1:
-                $ref: '#/components/schemas/Type'
+              $ref: '#/components/schemas/Type'
             type_2:
-                $ref: '#/components/schemas/Type'
+              $ref: '#/components/schemas/Type'
         height:
           $ref: '#/components/schemas/Height'
         weight:
           $ref: '#/components/schemas/Weight'
-        
     ErrorResponse:
       description: The response when an error occurs
       type: object
