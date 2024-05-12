@@ -19,6 +19,8 @@ paths:
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/Order'
         - $ref: '#/components/parameters/Name'
+        - $ref: '#/components/parameters/German_Name'
+        - $ref: '#/components/parameters/Japanese_Name'
         - $ref: '#/components/parameters/Generation'
         - $ref: '#/components/parameters/Rarity'
         - $ref: '#/components/parameters/Species'
@@ -107,6 +109,14 @@ components:
       description: The name of the Pokémon
       type: string
       example: Pikachu
+    German_Name:
+      description: The German name of the Pokémon
+      type: string
+      example: Enton
+    Japanese_Name:
+      description: The Japanese name of the Pokémon
+      type: string
+      example: ピカチュウ
     Generation:
       description: The generation of the Pokémon
       type: integer
@@ -196,6 +206,20 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/Name'
+    German_Name:
+      name: german_name
+      in: query
+      description: Specifies the German name of the Pokémon to retrieve
+      required: false
+      schema:
+        $ref: '#/components/schemas/German_Name'
+    Japanese_Name:
+      name: japanese_name
+      in: query
+      description: Specifies the Japanese name of the Pokémon to retrieve
+      required: false
+      schema:
+        $ref: '#/components/schemas/Japanese_Name'
     Generation:
       name: generation
       in: query
