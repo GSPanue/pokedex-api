@@ -2,7 +2,7 @@ openapi: '3.0.3'
 info:
   title: Pokédex API Specification
   description: The Pokédex API provides a set of endpoints for accessing data related to Pokémon characters. Users can retrieve various attributes of Pokémon, including their name, generation, height, weight, abilities, rarity, and more.
-  version: '1.0'
+  version: '2.0'
 servers:
   - url: http://localhost:3000/api/v1
     description: Local Development Server
