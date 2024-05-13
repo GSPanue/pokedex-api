@@ -158,11 +158,31 @@ components:
       type: string
       example: Grass
     Height:
-      description: The height of the Pokémon in metres
+      description: The height of the Pokémon
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/HeightValue'
+        unit:
+          description: The unit of measurement for the height
+          type: string
+          example: metres
+    HeightValue:
+      description: The numerical value of the height
       type: number
       example: '0.70'
     Weight:
-      description: The weight of the Pokémon in kilograms
+      description: The weight of the Pokémon
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/WeightValue'
+        unit:
+          description: The unit of measurement for the weight
+          type: string
+          example: kilograms
+    WeightValue:
+      description: The numerical value of the weight
       type: number
       example: '6.90'
     PokemonItem:
@@ -326,7 +346,7 @@ components:
         _Supports_ : =, !=, <, <=, >, >=
       required: false
       schema:
-        $ref: '#/components/schemas/Height'
+        $ref: '#/components/schemas/HeightValue'
     Weight:
       name: weight
       in: query
@@ -336,4 +356,4 @@ components:
         _Supports_ : =, !=, <, <=, >, >=
       required: false
       schema:
-        $ref: '#/components/schemas/Weight'
+        $ref: '#/components/schemas/WeightValue'
