@@ -1,0 +1,261 @@
+openapi: '3.0.3'
+info:
+  title: Pokédex API Specification
+  description: The Pokédex API provides a set of endpoints for accessing data related to Pokémon characters. Users can retrieve various attributes of Pokémon, including their name, generation, height, weight, abilities, rarity, and more.
+  version: '1.0'
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local Development Server
+paths:
+  /pokedex:
+    get:
+      summary: Get a list of Pokémon entries in the Pokédex
+      operationId: getPokemon
+      tags:
+        - Pokédex API
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PokemonItem'
+        '400':
+          description: Unable to get a list of Pokémon due to invalid value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: '400'
+                message: 'Invalid value provided for the parameter "Limit". Please provide a value between 1 and 100.'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pokedex/{id}:
+    get:
+      summary: Get information about all Pokémon entries with the specified Pokédex ID
+      operationId: getPokemonById
+      tags:
+        - Pokédex API
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PokemonItem'
+        '404':
+          description: Pokémon not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: '404'
+                message: 'Pokémon {id} not found'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Id:
+      description: The ID of the Pokémon entry in the Pokédex
+      type: integer
+      format: int32
+      example: 1
+    Limit:
+      description: The number of Pokémon entries to retrieve in a single request
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 100
+      default: 10
+      example: 10
+    Offset:
+      description: The starting point from which Pokémon entries should be retrieved
+      type: integer
+      format: int32
+      minimum: 0
+      default: 0
+      example: 1
+    Sort:
+      description: The name of the attribute to sort
+      type: string
+      example: generation
+    Order:
+      description: The order in which the entries should be sorted
+      type: string
+      example: asc
+      enum:
+        - asc
+        - desc
+    Name:
+      description: The name of the Pokémon
+      type: string
+      example: Bulbasaur
+    German_Name:
+      description: The German name of the Pokémon
+      type: string
+      example: Bisasam
+    Japanese_Name:
+      description: The Japanese name of the Pokémon
+      type: string
+      example: フシギダネ (Fushigidane)
+    Generation:
+      description: The generation of the Pokémon
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 8
+      example: 1
+    Rarity:
+      description: The rarity of the Pokémon
+      type: string
+      example: Normal
+      enum:
+        - Normal
+        - Sub Legendary
+        - Legendary
+        - Mythical
+    Species:
+      description: The species of the Pokémon
+      type: string
+      example: Seed
+    Ability:
+      description: The ability of the Pokémon
+      type: string
+      example: Overgrow
+    Type:
+      description: The type of the Pokémon
+      type: string
+      example: Grass
+    Height:
+      description: The height of the Pokémon
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/HeightValue'
+        unit:
+          description: The unit of measurement for the height
+          type: string
+          example: metres
+    HeightValue:
+      description: The numerical value of the height
+      type: number
+      example: '0.70'
+    Weight:
+      description: The weight of the Pokémon
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/WeightValue'
+        unit:
+          description: The unit of measurement for the weight
+          type: string
+          example: kilograms
+    WeightValue:
+      description: The numerical value of the weight
+      type: number
+      example: '6.90'
+    PokemonItem:
+      description: The structured representation of a Pokémon entry in the Pokédex
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        name:
+          $ref: '#/components/schemas/Name'
+        german_name:
+          $ref: '#/components/schemas/German_Name'
+        japanese_name:
+          $ref: '#/components/schemas/Japanese_Name'
+        generation:
+          $ref: '#/components/schemas/Generation'
+        rarity:
+          $ref: '#/components/schemas/Rarity'
+        species:
+          $ref: '#/components/schemas/Species'
+        abilities:
+          type: object
+          properties:
+            ability_1:
+              $ref: '#/components/schemas/Ability'
+            ability_2:
+              $ref: '#/components/schemas/Ability'
+            ability_hidden:
+              $ref: '#/components/schemas/Ability'
+        types:
+          type: object
+          properties:
+            type_1:
+              $ref: '#/components/schemas/Type'
+            type_2:
+              $ref: '#/components/schemas/Type'
+        height:
+          $ref: '#/components/schemas/Height'
+        weight:
+          $ref: '#/components/schemas/Weight'
+    ErrorResponse:
+      description: The response when an error occurs
+      type: object
+      properties:
+        status:
+          description: The HTTP Status Code
+          type: string
+        message:
+          description: The message detailing the error
+          type: string
+  parameters:
+    Id:
+      name: id
+      in: path
+      description: The ID of the Pokémon entry in the Pokédex
+      required: true
+      schema:
+        $ref: '#/components/schemas/Id'
+    Limit:
+      name: limit
+      in: query
+      description: How many Pokémon should be retrieved in a single request
+      required: false
+      schema:
+        $ref: '#/components/schemas/Limit'
+    Offset:
+      name: offset
+      in: query
+      description: How far into the list of Pokémon should the response start
+      required: false
+      schema:
+        $ref: '#/components/schemas/Offset'
+    Sort:
+      name: sort
+      in: query
+      description: The attribute by which the list of Pokémon should be sorted
+      required: false
+      schema:
+        $ref: '#/components/schemas/Sort'
+    Order:
+      name: order
+      in: query
+      description: Specifies the order in which the list of Pokémon should be sorted
+      required: false
+      schema:
+        $ref: '#/components/schemas/Order'
