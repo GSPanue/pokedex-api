@@ -22,6 +22,32 @@ paths:
         '200':
           description: OK
           headers:
+            Content-Type:
+              description: The type of data contained in the response
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              description: The size of the response data in bytes
+              schema:
+                type: integer
+                example: 384
+            Date:
+              description: The representation of the date and time at which the response was generated
+              schema:
+                type: string
+                format: date-time
+                example: 2024-05-15T12:30:00Z
+            Cache-Control:
+              description: The caching directive for the response
+              schema:
+                type: string
+                example: "max-age=3600, public"
+            ETag:
+              description: The unique identifier for the current version of the resource
+              schema:
+                type: string
+                example: 5d8c72a5edda3c7d
             X-Total-Count:
               description: The total number of items available
               schema:
