@@ -21,6 +21,42 @@ paths:
       responses:
         '200':
           description: OK
+          headers:
+            X-Total-Count:
+              description: The total number of items available
+              schema:
+                type: integer
+                example: 1000
+            X-Item-Count:
+              description: The number of items in the current response
+              schema:
+                type: integer
+                example: 1
+            X-Page-Count:
+              description: The total number of pages
+              schema:
+                type: integer
+                example: 100
+            X-Current-Page:
+              description: The current page number
+              schema:
+                type: integer
+                example: 1
+            X-Page-Size:
+              description: The number of items per page
+              schema:
+                type: integer
+                example: 10
+            X-Has-Next-Page:
+              description: Whether there are more pages of items available beyond the current page
+              schema:
+                type: boolean
+                example: "true"
+            X-Has-Previous-Page:
+              description: Whether there are previous pages of items available before the current page
+              schema:
+                type: boolean
+                example: "false"
           content:
             application/json:
               schema:
