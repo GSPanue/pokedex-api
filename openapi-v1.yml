@@ -92,7 +92,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/PokemonItem'
-
         '400':
           description: Unable to get a list of Pokémon due to invalid value
           content:
