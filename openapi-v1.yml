@@ -86,12 +86,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  results:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/PokemonItem'
+                $ref: '#/components/schemas/SuccessResponse'
         '400':
           description: Unable to get a list of Pokémon due to invalid value
           content:
@@ -153,12 +148,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  results:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/PokemonItem'
+                $ref: '#/components/schemas/SuccessResponse'
         '404':
           description: Pokémon not found
           content:
@@ -313,6 +303,14 @@ components:
           $ref: '#/components/schemas/Height'
         weight:
           $ref: '#/components/schemas/Weight'
+    SuccessResponse:
+      description: The response when a request is successful
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PokemonItem'
     ErrorResponse:
       description: The response when an error occurs
       type: object
