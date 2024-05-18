@@ -89,6 +89,23 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
         '400':
           description: Unable to get a list of Pokémon due to invalid value
+          headers:
+            Content-Type:
+              description: The type of data contained in the response
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              description: The size of the response data in bytes
+              schema:
+                type: integer
+                example: 384
+            Date:
+              description: The representation of the date and time at which the response was generated
+              schema:
+                type: string
+                format: date-time
+                example: 2024-05-15T12:30:00Z
           content:
             application/json:
               schema:
@@ -98,6 +115,23 @@ paths:
                 message: 'Invalid value provided for the parameter "Limit". Please provide a value between 1 and 100.'
         default:
           description: Unexpected error
+          headers:
+            Content-Type:
+              description: The type of data contained in the response
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              description: The size of the response data in bytes
+              schema:
+                type: integer
+                example: 384
+            Date:
+              description: The representation of the date and time at which the response was generated
+              schema:
+                type: string
+                format: date-time
+                example: 2024-05-15T12:30:00Z
           content:
             application/json:
               schema:
@@ -151,6 +185,23 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
         '404':
           description: Pokémon not found
+          headers:
+            Content-Type:
+              description: The type of data contained in the response
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              description: The size of the response data in bytes
+              schema:
+                type: integer
+                example: 384
+            Date:
+              description: The representation of the date and time at which the response was generated
+              schema:
+                type: string
+                format: date-time
+                example: 2024-05-15T12:30:00Z
           content:
             application/json:
               schema:
@@ -160,6 +211,23 @@ paths:
                 message: 'Pokémon {id} not found'
         default:
           description: Unexpected error
+          headers:
+            Content-Type:
+              description: The type of data contained in the response
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              description: The size of the response data in bytes
+              schema:
+                type: integer
+                example: 384
+            Date:
+              description: The representation of the date and time at which the response was generated
+              schema:
+                type: string
+                format: date-time
+                example: 2024-05-15T12:30:00Z
           content:
             application/json:
               schema:
