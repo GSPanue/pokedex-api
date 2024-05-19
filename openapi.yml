@@ -23,66 +23,29 @@ paths:
           description: OK
           headers:
             Content-Type:
-              description: The type of data contained in the response
-              schema:
-                type: string
-                example: application/json
+              $ref: '#/components/headers/Content-Type'
             Content-Length:
-              description: The size of the response data in bytes
-              schema:
-                type: integer
-                example: 384
+              $ref: '#/components/headers/Content-Length'
             Date:
-              description: The representation of the date and time at which the response was generated
-              schema:
-                type: string
-                format: date-time
-                example: 2024-05-15T12:30:00Z
+              $ref: '#/components/headers/Date'
             Cache-Control:
-              description: The caching directive for the response
-              schema:
-                type: string
-                example: "max-age=3600, public"
+              $ref: '#/components/headers/Cache-Control'
             ETag:
-              description: The unique identifier for the current version of the resource
-              schema:
-                type: string
-                example: 5d8c72a5edda3c7d
+              $ref: '#/components/headers/ETag'
             X-Total-Count:
-              description: The total number of items available
-              schema:
-                type: integer
-                example: 1000
+              $ref: '#/components/headers/X-Total-Count'
             X-Item-Count:
-              description: The number of items in the current response
-              schema:
-                type: integer
-                example: 1
+              $ref: '#/components/headers/X-Item-Count'
             X-Page-Count:
-              description: The total number of pages
-              schema:
-                type: integer
-                example: 100
+              $ref: '#/components/headers/X-Page-Count'
             X-Current-Page:
-              description: The current page number
-              schema:
-                type: integer
-                example: 1
+              $ref: '#/components/headers/X-Current-Page'
             X-Page-Size:
-              description: The number of items per page
-              schema:
-                type: integer
-                example: 10
+              $ref: '#/components/headers/X-Page-Size'
             X-Has-Next-Page:
-              description: Whether there are more pages of items available beyond the current page
-              schema:
-                type: boolean
-                example: "true"
+              $ref: '#/components/headers/X-Has-Next-Page'
             X-Has-Previous-Page:
-              description: Whether there are previous pages of items available before the current page
-              schema:
-                type: boolean
-                example: "false"
+              $ref: '#/components/headers/X-Has-Previous-Page'
           content:
             application/json:
               schema:
@@ -91,21 +54,11 @@ paths:
           description: Unable to get a list of Pokémon due to invalid value
           headers:
             Content-Type:
-              description: The type of data contained in the response
-              schema:
-                type: string
-                example: application/json
+              $ref: '#/components/headers/Content-Type'
             Content-Length:
-              description: The size of the response data in bytes
-              schema:
-                type: integer
-                example: 384
+              $ref: '#/components/headers/Content-Length'
             Date:
-              description: The representation of the date and time at which the response was generated
-              schema:
-                type: string
-                format: date-time
-                example: 2024-05-15T12:30:00Z
+              $ref: '#/components/headers/Date'
           content:
             application/json:
               schema:
@@ -117,21 +70,11 @@ paths:
           description: Unexpected error
           headers:
             Content-Type:
-              description: The type of data contained in the response
-              schema:
-                type: string
-                example: application/json
+              $ref: '#/components/headers/Content-Type'
             Content-Length:
-              description: The size of the response data in bytes
-              schema:
-                type: integer
-                example: 384
+              $ref: '#/components/headers/Content-Length'
             Date:
-              description: The representation of the date and time at which the response was generated
-              schema:
-                type: string
-                format: date-time
-                example: 2024-05-15T12:30:00Z
+              $ref: '#/components/headers/Date'
           content:
             application/json:
               schema:
@@ -149,36 +92,17 @@ paths:
           description: OK
           headers:
             Content-Type:
-              description: The type of data contained in the response
-              schema:
-                type: string
-                example: application/json
+              $ref: '#/components/headers/Content-Type'
             Content-Length:
-              description: The size of the response data in bytes
-              schema:
-                type: integer
-                example: 384
+              $ref: '#/components/headers/Content-Length'
             Date:
-              description: The representation of the date and time at which the response was generated
-              schema:
-                type: string
-                format: date-time
-                example: 2024-05-15T12:30:00Z
+              $ref: '#/components/headers/Date'
             Cache-Control:
-              description: The caching directive for the response
-              schema:
-                type: string
-                example: "max-age=3600, public"
+              $ref: '#/components/headers/Cache-Control'
             ETag:
-              description: The unique identifier for the current version of the resource
-              schema:
-                type: string
-                example: 5d8c72a5edda3c7d
+              $ref: '#/components/headers/ETag'
             X-Item-Count:
-              description: The number of items in the current response
-              schema:
-                type: integer
-                example: 1
+              $ref: '#/components/headers/X-Item-Count'
           content:
             application/json:
               schema:
@@ -187,21 +111,11 @@ paths:
           description: Pokémon not found
           headers:
             Content-Type:
-              description: The type of data contained in the response
-              schema:
-                type: string
-                example: application/json
+              $ref: '#/components/headers/Content-Type'
             Content-Length:
-              description: The size of the response data in bytes
-              schema:
-                type: integer
-                example: 384
+              $ref: '#/components/headers/Content-Length'
             Date:
-              description: The representation of the date and time at which the response was generated
-              schema:
-                type: string
-                format: date-time
-                example: 2024-05-15T12:30:00Z
+              $ref: '#/components/headers/Date'
           content:
             application/json:
               schema:
@@ -213,21 +127,11 @@ paths:
           description: Unexpected error
           headers:
             Content-Type:
-              description: The type of data contained in the response
-              schema:
-                type: string
-                example: application/json
+              $ref: '#/components/headers/Content-Type'
             Content-Length:
-              description: The size of the response data in bytes
-              schema:
-                type: integer
-                example: 384
+              $ref: '#/components/headers/Content-Length'
             Date:
-              description: The representation of the date and time at which the response was generated
-              schema:
-                type: string
-                format: date-time
-                example: 2024-05-15T12:30:00Z
+              $ref: '#/components/headers/Date'
           content:
             application/json:
               schema:
