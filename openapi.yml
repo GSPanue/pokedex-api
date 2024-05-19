@@ -233,6 +233,68 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  headers:
+    Content-Type:
+      description: The type of data contained in the response
+      schema:
+        type: string
+        example: application/json
+    Content-Length:
+      description: The size of the response data in bytes
+      schema:
+        type: integer
+        example: 384
+    Date:
+      description: The representation of the date and time at which the response was generated
+      schema:
+        type: string
+        format: date-time
+        example: 2024-05-15T12:30:00Z
+    Cache-Control:
+      description: The caching directive for the response
+      schema:
+        type: string
+        example: "max-age=3600, public"
+    ETag:
+      description: The unique identifier for the current version of the resource
+      schema:
+        type: string
+        example: 5d8c72a5edda3c7d
+    X-Total-Count:
+      description: The total number of items available
+      schema:
+        type: integer
+        example: 1000
+    X-Item-Count:
+      description: The number of items in the current response
+      schema:
+        type: integer
+        example: 1
+    X-Page-Count:
+      description: The total number of pages
+      schema:
+        type: integer
+        example: 100
+    X-Current-Page:
+      description: The current page number
+      schema:
+        type: integer
+        example: 1
+    X-Page-Size:
+      description: The number of items per page
+      schema:
+        type: integer
+        example: 10
+    X-Has-Next-Page:
+      description: Whether there are more pages of items available beyond the current page
+      schema:
+        type: boolean
+        example: "true"
+    X-Has-Previous-Page:
+      description: Whether there are previous pages of items available before the current page
+      schema:
+        type: boolean
+        example: "false"
   schemas:
     Id:
       description: The ID of the Pokémon entry in the Pokédex
