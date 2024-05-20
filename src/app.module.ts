@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
+import { PokedexModule } from './pokedex';
 
 @Module({
-  controllers: [],
-  providers: [],
+  imports: [PokedexModule],
 })
 export class AppModule {}

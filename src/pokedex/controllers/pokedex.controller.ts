@@ -1,24 +1,25 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { PokedexService } from '../providers/pokedex.service';
 
 @Controller()
 export class PokedexController {
-  constructor(private readonly pokemonService) {}
+  constructor(private pokedexService: PokedexService) {}
 
-  @Get()
+  @Get('pokedex')
   getPokemon() {
     /**
      * @todo Find all Pokémon
      */
 
-    return this.pokemonService.getPokemon();
+    return this.pokedexService.getPokemon();
   }
 
-  @Get(':id')
+  @Get('pokedex/:id')
   getPokemonById(@Param('id') id: number) {
     /**
      * @todo Find Pokémon by ID
      */
 
-    return this.pokemonService.getPokemonById(id);
+    return this.pokedexService.getPokemonById(id);
   }
 }
