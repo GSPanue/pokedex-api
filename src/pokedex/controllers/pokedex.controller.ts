@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { PokedexService } from '../providers/pokedex.service';
+import { PokedexService } from '../providers';
 
 @Controller()
 export class PokedexController {
