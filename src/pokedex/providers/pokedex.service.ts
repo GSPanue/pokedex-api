@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PokedexService {
-  getPokemon({ limit, offset, sort, order }) {
+  getPokemon(limit: number, offset: number, sort: string, order: string) {
     return [];
   }
 
