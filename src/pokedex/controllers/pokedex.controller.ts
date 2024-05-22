@@ -1,17 +1,27 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Query, Param } from '@nestjs/common';
 import { PokedexService } from '../providers';
 
 @Controller()
 export class PokedexController {
-  constructor(private pokedexService: PokedexService) {}
+  constructor(private pokedex: PokedexService) {}
 
   @Get('pokedex')
-  getPokemon() {
+  getPokemon(
+    @Query('limit') limit: number = 10,
+    @Query('offset') offset: number = 0,
+    @Query('sort') sort: string = '',
+    @Query('order') order: string = 'asc',
+  ) {
     /**
      * @todo Find all Pokémon
      */
 
-    return this.pokedexService.getPokemon();
+    return this.pokedex.getPokemon({
+      limit,
+      offset,
+      sort,
+      order,
+    });
   }
 
   @Get('pokedex/:id')
@@ -20,6 +30,6 @@ export class PokedexController {
      * @todo Find Pokémon by ID
      */
 
-    return this.pokedexService.getPokemonById(id);
+    return this.pokedex.getPokemonById(id);
   }
 }
