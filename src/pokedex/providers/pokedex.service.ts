@@ -6,7 +6,7 @@ export class PokedexService {
     return [];
   }
 
-  getPokemonById(id) {
+  getPokemonById(id: number) {
     return [id];
   }
 }
