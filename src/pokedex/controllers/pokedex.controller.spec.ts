@@ -27,6 +27,10 @@ describe('PokedexController', () => {
     pokedexService = module.get<PokedexService>(PokedexService);
   });
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should be defined', () => {
     expect(pokedexController).toBeDefined();
   });
@@ -43,9 +47,7 @@ describe('PokedexController', () => {
         },
       ];
 
-      mockPokedexService.getPokemon = jest
-        .fn()
-        .mockResolvedValueOnce(pokemonArray);
+      mockPokedexService.getPokemon.mockResolvedValueOnce(pokemonArray);
 
       const res = await pokedexController.getPokemon();
 
@@ -55,20 +57,38 @@ describe('PokedexController', () => {
     it('should return an empty array', async () => {
       const pokemonArray = [];
 
-      mockPokedexService.getPokemon = jest
-        .fn()
-        .mockResolvedValueOnce(pokemonArray);
+      mockPokedexService.getPokemon.mockResolvedValueOnce(pokemonArray);
 
       const res = await pokedexController.getPokemon();
 
       expect(res).toEqual(pokemonArray);
     });
 
-    it('should call getPokemon with default query parameters when none are provided', async () => {
+    it('should call getPokemon() with default query parameters when none are provided', async () => {
       const query = {
-        limit: 20,
-        offset: 5,
-        sort: 'name',
+        limit: 10,
+        offset: 0,
+        sort: '',
+        order: 'asc',
+      };
+
+      await pokedexController.getPokemon();
+
+      expect(mockPokedexService.getPokemon).toHaveBeenCalledWith(
+        query.limit,
+        query.offset,
+        query.sort,
+        query.order,
+      );
+
+      expect(mockPokedexService.getPokemon).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call getPokemon() with the provided query parameters', async () => {
+      const query = {
+        limit: 100,
+        offset: 1,
+        sort: 'generation',
         order: 'desc',
       };
 
@@ -79,15 +99,15 @@ describe('PokedexController', () => {
         query.order,
       );
 
-      expect(pokedexService.getPokemon).toHaveBeenCalledWith({
-        limit: query.limit,
-        offset: query.offset,
-        sort: query.sort,
-        order: query.order,
-      });
-    });
+      expect(mockPokedexService.getPokemon).toHaveBeenCalledWith(
+        query.limit,
+        query.offset,
+        query.sort,
+        query.order,
+      );
 
-    it('should call getPokemon with the provided query parameters', async () => {});
+      expect(mockPokedexService.getPokemon).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('getPokemonById', () => {
@@ -101,9 +121,7 @@ describe('PokedexController', () => {
         },
       ];
 
-      mockPokedexService.getPokemonById = jest
-        .fn()
-        .mockResolvedValueOnce(pokemonArray);
+      mockPokedexService.getPokemonById.mockResolvedValueOnce(pokemonArray);
 
       const res = await pokedexController.getPokemonById(id);
 
@@ -113,13 +131,21 @@ describe('PokedexController', () => {
     it('should return an empty array', async () => {
       const pokemonArray = [];
 
-      mockPokedexService.getPokemonById = jest
-        .fn()
-        .mockResolvedValueOnce(pokemonArray);
+      mockPokedexService.getPokemonById.mockResolvedValueOnce(pokemonArray);
 
       const res = await pokedexController.getPokemonById(1);
 
       expect(res).toEqual(pokemonArray);
+    });
+
+    it('should call getPokemonById() with the provided path parameter', async () => {
+      const id = 1;
+
+      await pokedexController.getPokemonById(id);
+
+      expect(mockPokedexService.getPokemonById).toHaveBeenCalledWith(id);
+
+      expect(mockPokedexService.getPokemonById).toHaveBeenCalledTimes(1);
     });
   });
 });
