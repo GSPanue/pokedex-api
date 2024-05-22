@@ -63,6 +63,31 @@ describe('PokedexController', () => {
 
       expect(res).toEqual(pokemonArray);
     });
+
+    it('should call getPokemon with default query parameters when none are provided', async () => {
+      const query = {
+        limit: 20,
+        offset: 5,
+        sort: 'name',
+        order: 'desc',
+      };
+
+      await pokedexController.getPokemon(
+        query.limit,
+        query.offset,
+        query.sort,
+        query.order,
+      );
+
+      expect(pokedexService.getPokemon).toHaveBeenCalledWith({
+        limit: query.limit,
+        offset: query.offset,
+        sort: query.sort,
+        order: query.order,
+      });
+    });
+
+    it('should call getPokemon with the provided query parameters', async () => {});
   });
 
   describe('getPokemonById', () => {
