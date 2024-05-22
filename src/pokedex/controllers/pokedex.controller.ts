@@ -16,12 +16,7 @@ export class PokedexController {
      * @todo Find all Pokémon
      */
 
-    return this.pokedex.getPokemon({
-      limit,
-      offset,
-      sort,
-      order,
-    });
+    return this.pokedex.getPokemon(limit, offset, sort, order);
   }
 
   @Get('pokedex/:id')
