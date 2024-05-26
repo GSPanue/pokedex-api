@@ -1,9 +1,14 @@
-import { Controller, Get, Query, Param } from '@nestjs/common';
-import { IPokedexService, IPokemon } from '../interfaces';
+import { Controller, Inject, Get, Query, Param } from '@nestjs/common';
+
+import { IPokedexController, IPokedexService, IPokemon } from '../interfaces';
+import { POKEDEX_SERVICE } from '../constants';
 
 @Controller('pokedex')
-export class PokedexController {
-  constructor(private pokedex: IPokedexService) {}
+export class PokedexController implements IPokedexController {
+  constructor(
+    @Inject(POKEDEX_SERVICE)
+    private pokedex: IPokedexService,
+  ) {}
 
   @Get()
   async getPokemon(

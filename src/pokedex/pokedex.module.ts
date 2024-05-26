@@ -1,10 +1,16 @@
 import { Module } from '@nestjs/common';
 
-import * as controllers from './controllers';
-import * as providers from './providers';
+import { PokedexController } from './controllers';
+import { PokedexService } from './providers';
+import { POKEDEX_SERVICE } from './constants';
 
 @Module({
-  controllers: Object.values(controllers),
-  providers: Object.values(providers),
+  controllers: [PokedexController],
+  providers: [
+    {
+      useClass: PokedexService,
+      provide: POKEDEX_SERVICE,
+    },
+  ],
 })
 export class PokedexModule {}

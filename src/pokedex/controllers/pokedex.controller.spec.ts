@@ -1,11 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { PokedexService } from '../providers';
 import { PokedexController } from './pokedex.controller';
+import { IPokedexController, IPokedexService } from '../interfaces';
+import { POKEDEX_SERVICE } from '../constants';
 
 describe('PokedexController', () => {
-  let pokedexService: PokedexService;
-  let pokedexController: PokedexController;
+  let pokedexController: IPokedexController;
+  let pokedexService: IPokedexService;
 
   const mockPokedexService = {
     getPokemon: jest.fn(),
@@ -17,14 +18,14 @@ describe('PokedexController', () => {
       controllers: [PokedexController],
       providers: [
         {
-          provide: PokedexService,
+          provide: POKEDEX_SERVICE,
           useValue: mockPokedexService,
         },
       ],
     }).compile();
 
-    pokedexController = module.get<PokedexController>(PokedexController);
-    pokedexService = module.get<PokedexService>(PokedexService);
+    pokedexController = module.get<IPokedexController>(PokedexController);
+    pokedexService = module.get<IPokedexService>(POKEDEX_SERVICE);
   });
 
   beforeEach(() => {
