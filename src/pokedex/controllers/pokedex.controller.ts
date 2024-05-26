@@ -1,11 +1,11 @@
 import { Controller, Get, Query, Param } from '@nestjs/common';
 import { IPokedexService, IPokemon } from '../interfaces';
 
-@Controller()
+@Controller('pokedex')
 export class PokedexController {
   constructor(private pokedex: IPokedexService) {}
 
-  @Get('pokedex')
+  @Get()
   async getPokemon(
     @Query('limit') limit: number = 10,
     @Query('offset') offset: number = 0,
@@ -19,7 +19,7 @@ export class PokedexController {
     return this.pokedex.getPokemon(limit, offset, sort, order);
   }
 
-  @Get('pokedex/:id')
+  @Get(':id')
   async getPokemonById(@Param('id') id: number): Promise<IPokemon[]> {
     /**
      * @todo Find Pokémon by ID
