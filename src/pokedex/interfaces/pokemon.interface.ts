@@ -25,6 +25,17 @@ export interface IPokemon {
   };
 }
 
+export interface IPokedexController {
+  getPokemon(
+    limit: number,
+    offset: number,
+    sort: string,
+    order: string,
+  ): Promise<IPokemon[]>;
+
+  getPokemonById(id: number): Promise<IPokemon[]>;
+}
+
 export interface IPokedexService {
   getPokemon(
     limit: number,
