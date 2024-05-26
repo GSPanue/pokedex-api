@@ -1,4 +1,4 @@
-export interface Pokemon {
+export interface IPokemon {
   id: number;
   name: string;
   german_name: string;
