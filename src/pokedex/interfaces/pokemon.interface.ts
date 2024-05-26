@@ -24,3 +24,14 @@ export interface Pokemon {
     unit: string;
   };
 }
+
+export interface IPokedexService {
+  getPokemon(
+    limit: number,
+    offset: number,
+    sort: string,
+    order: string,
+  ): IPokemon[];
+
+  getPokemonById(id: number): IPokemon[];
+}
