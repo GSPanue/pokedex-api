@@ -14,7 +14,10 @@ export class HttpHeaderInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     const res = context.switchToHttp().getResponse();
 
-    res.header('X-Custom-Header', 'Hello world');
+    res.removeHeader('X-Powered-By');
+    res.removeHeader('Connection');
+    res.removeHeader('Keep-Alive');
+    res.removeHeader('Etag');
 
     return next.handle();
   }
