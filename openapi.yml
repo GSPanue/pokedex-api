@@ -142,7 +142,7 @@ components:
       description: The type of data contained in the response
       schema:
         type: string
-        example: application/json
+        example: application/json; charset=utf-8
     Content-Length:
       description: The size of the response data in bytes
       schema:
@@ -153,7 +153,7 @@ components:
       schema:
         type: string
         format: date-time
-        example: 2024-05-15T12:30:00Z
+        example: Mon, 27 May 2024 17:15:28 GMT
     Cache-Control:
       description: The caching directive for the response
       schema:
