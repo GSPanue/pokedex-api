@@ -1,1 +1,1 @@
-export * from './interceptors';
+export * from './middleware';
