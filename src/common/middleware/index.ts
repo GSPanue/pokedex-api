@@ -1,1 +1,1 @@
-export * from './HttpHeaderMiddleware';
+export * from './httpheader.middleware';
