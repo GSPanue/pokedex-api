@@ -1,12 +1,12 @@
 import { Controller, Inject, Get, Query, Param } from '@nestjs/common';
 
+import { POKEDEX_SERVICE } from '../constants';
+
 import type {
   IPokedexController,
   IPokedexService,
   IPokemon,
 } from '../interfaces';
-
-import { POKEDEX_SERVICE } from '../constants';
 
 @Controller('pokedex')
 export class PokedexController implements IPokedexController {
