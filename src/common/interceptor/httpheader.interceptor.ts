@@ -1,6 +1,6 @@
 import { Injectable, NestInterceptor } from '@nestjs/common';
 import { map } from 'rxjs/operators';
-import ETag from 'etag';
+import * as ETag from 'etag';
 
 import type { CallHandler, ExecutionContext } from '@nestjs/common';
 import type { Observable } from 'rxjs';
