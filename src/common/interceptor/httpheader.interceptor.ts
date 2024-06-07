@@ -21,12 +21,14 @@ export class HttpHeaderInterceptor implements NestInterceptor {
         const req = ctx.getRequest();
         const res = ctx.getResponse();
 
-        const isOK = res.statusCode >= 200 && res.statusCode < 300;
+        const isSuccessful = res.statusCode >= 200 && res.statusCode < 300;
+        const isUnsuccessful = res.statusCode >= 400 && res.statusCode < 600;
 
-        if (isOK) {
+        if (isSuccessful) {
           const etag = ETag(JSON.stringify(data));
           const doesMatchETag = req.headers['if-none-match'] === etag;
 
+          res.setHeader('Cache-Control', 'max-age=3600, public');
           res.setHeader('ETag', etag);
 
           if (doesMatchETag) {
@@ -38,6 +40,8 @@ export class HttpHeaderInterceptor implements NestInterceptor {
            * @todo Set custom headers
            */
           return data;
+        } else if (isUnsuccessful) {
+          res.setHeader('Cache-Control', 'no-store, must-revalidate');
         }
       }),
     );
