@@ -1,12 +1,8 @@
-import {
-  CallHandler,
-  ExecutionContext,
-  Injectable,
-  NestInterceptor,
-} from '@nestjs/common';
+import { Injectable, NestInterceptor } from '@nestjs/common';
 import { map } from 'rxjs/operators';
-import * as ETag from 'etag';
+import ETag from 'etag';
 
+import type { CallHandler, ExecutionContext } from '@nestjs/common';
 import type { Observable } from 'rxjs';
 
 @Injectable()
@@ -22,7 +18,6 @@ export class HttpHeaderInterceptor implements NestInterceptor {
         const res = ctx.getResponse();
 
         const isSuccessful = res.statusCode >= 200 && res.statusCode < 300;
-        const isUnsuccessful = res.statusCode >= 400 && res.statusCode < 600;
 
         if (isSuccessful) {
           const etag = ETag(JSON.stringify(data));
@@ -36,12 +31,11 @@ export class HttpHeaderInterceptor implements NestInterceptor {
 
             return;
           }
+
           /**
            * @todo Set custom headers
            */
           return data;
-        } else if (isUnsuccessful) {
-          res.setHeader('Cache-Control', 'no-store, must-revalidate');
         }
       }),
     );
