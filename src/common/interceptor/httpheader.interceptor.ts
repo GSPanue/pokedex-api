@@ -23,8 +23,11 @@ export class HttpHeaderInterceptor implements NestInterceptor {
           const etag = ETag(JSON.stringify(data));
           const doesMatchETag = req.headers['if-none-match'] === etag;
 
+          const itemCount = data.length;
+
           res.setHeader('Cache-Control', 'max-age=3600, public');
           res.setHeader('ETag', etag);
+          res.setHeader('X-Item-Count', itemCount);
 
           if (doesMatchETag) {
             res.status(304);
