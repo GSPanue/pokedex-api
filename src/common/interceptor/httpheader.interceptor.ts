@@ -46,7 +46,11 @@ export class HttpHeaderInterceptor implements NestInterceptor {
         const ctx = context.switchToHttp();
         const res = ctx.getResponse();
 
-        res.setHeader('Cache-Control', 'no-store, must-revalidate');
+        const isUnsuccessful = res.statusCode >= 400 && res.statusCode < 600;
+
+        if (isUnsuccessful) {
+          res.setHeader('Cache-Control', 'no-store, must-revalidate');
+        }
 
         return throwError(error);
       }),
