@@ -1,6 +1,5 @@
 import { Injectable, NestInterceptor } from '@nestjs/common';
-import { throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import * as ETag from 'etag';
 
 import type { CallHandler, ExecutionContext } from '@nestjs/common';
@@ -41,18 +40,6 @@ export class HttpHeaderInterceptor implements NestInterceptor {
            */
           return data;
         }
-      }),
-      catchError((error) => {
-        const ctx = context.switchToHttp();
-        const res = ctx.getResponse();
-
-        const isUnsuccessful = res.statusCode >= 400 && res.statusCode < 600;
-
-        if (isUnsuccessful) {
-          res.setHeader('Cache-Control', 'no-store, must-revalidate');
-        }
-
-        return throwError(error);
       }),
     );
   }
