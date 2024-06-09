@@ -31,9 +31,9 @@ export interface IPokedexController {
     offset?: number,
     sort?: string,
     order?: string,
-  ): Promise<IPokemon[]>;
+  ): Promise<IPokedexResponse>;
 
-  getPokemonById(id: number): Promise<IPokemon[]>;
+  getPokemonById(id: number): Promise<IPokedexResponse>;
 }
 
 export interface IPokedexService {
@@ -45,4 +45,15 @@ export interface IPokedexService {
   ): IPokemon[];
 
   getPokemonById(id: number): IPokemon[];
+}
+
+export interface IPokedexResponse {
+  query?: {
+    limit?: number;
+    offset?: number;
+    sort?: string;
+    order?: string;
+  };
+
+  results: IPokemon[];
 }

@@ -1,11 +1,19 @@
-import { Controller, Inject, Get, Query, Param } from '@nestjs/common';
+import {
+  Controller,
+  Inject,
+  Get,
+  Query,
+  DefaultValuePipe,
+  ParseIntPipe,
+  Param,
+} from '@nestjs/common';
 
 import { POKEDEX_SERVICE } from '../constants';
 
 import type {
   IPokedexController,
   IPokedexService,
-  IPokemon,
+  IPokedexResponse,
 } from '../interfaces';
 
 @Controller('pokedex')
@@ -17,24 +25,34 @@ export class PokedexController implements IPokedexController {
 
   @Get()
   async getPokemon(
-    @Query('limit') limit: number = 10,
-    @Query('offset') offset: number = 0,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+    @Query('offset', new DefaultValuePipe(0), ParseIntPipe) offset: number,
     @Query('sort') sort: string = '',
     @Query('order') order: string = 'asc',
-  ): Promise<IPokemon[]> {
+  ): Promise<IPokedexResponse> {
     /**
      * @todo Find all Pokémon
      */
 
-    return this.pokedex.getPokemon(limit, offset, sort, order);
+    return {
+      query: {
+        limit,
+        offset,
+        sort,
+        order,
+      },
+      results: this.pokedex.getPokemon(limit, offset, sort, order),
+    };
   }
 
   @Get(':id')
-  async getPokemonById(@Param('id') id: number): Promise<IPokemon[]> {
+  async getPokemonById(@Param('id') id: number): Promise<IPokedexResponse> {
     /**
      * @todo Find Pokémon by ID
      */
 
-    return this.pokedex.getPokemonById(id);
+    return {
+      results: this.pokedex.getPokemonById(id),
+    };
   }
 }
