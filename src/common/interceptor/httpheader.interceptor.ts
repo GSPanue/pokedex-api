@@ -5,6 +5,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { catchError } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 import * as ETag from 'etag';
 
 import type { CallHandler, ExecutionContext } from '@nestjs/common';
@@ -16,12 +17,12 @@ export class HttpHeaderInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
-    return next.handle().pipe(
-      map(({ query, results }) => {
     const ctx = context.switchToHttp();
     const req = ctx.getRequest();
     const res = ctx.getResponse();
 
+    return next.handle().pipe(
+      tap(({ query, results }) => {
         const isSuccessful = res.statusCode >= 200 && res.statusCode < 300;
 
         // Set headers for successful responses
@@ -50,14 +51,22 @@ export class HttpHeaderInterceptor implements NestInterceptor {
           // Apply custom headers for certain routes
           if (isPokedexRoute) {
             if (path === '/pokedex') {
-              // Apply custom headers for root pokedex path
+              const { limit } = query;
+
+              res.setHeader('X-Total-Count', null);
+              res.setHeader('X-Page-Count', null);
+              res.setHeader('X-Current-Page', null);
+              res.setHeader('X-Page-Size', limit);
+              res.setHeader('X-Has-Next-Page', null);
+              res.setHeader('X-Has-Previous-Page', null);
             }
           }
-
-          return results;
         }
       }),
+      map(({ results }) => results),
       catchError((err) => {
+        console.error(err);
+
         // Re-throw HttpException
         if (err instanceof HttpException) {
           throw err;
