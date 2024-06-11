@@ -1,5 +1,10 @@
-import { Injectable, NestInterceptor } from '@nestjs/common';
-import { map } from 'rxjs/operators';
+import {
+  Injectable,
+  HttpException,
+  NestInterceptor,
+  InternalServerErrorException,
+} from '@nestjs/common';
+import { catchError } from 'rxjs';
 import * as ETag from 'etag';
 
 import type { CallHandler, ExecutionContext } from '@nestjs/common';
@@ -13,9 +18,9 @@ export class HttpHeaderInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     return next.handle().pipe(
       map(({ query, results }) => {
-        const ctx = context.switchToHttp();
-        const req = ctx.getRequest();
-        const res = ctx.getResponse();
+    const ctx = context.switchToHttp();
+    const req = ctx.getRequest();
+    const res = ctx.getResponse();
 
         const isSuccessful = res.statusCode >= 200 && res.statusCode < 300;
 
@@ -51,6 +56,15 @@ export class HttpHeaderInterceptor implements NestInterceptor {
 
           return results;
         }
+      }),
+      catchError((err) => {
+        // Re-throw HttpException
+        if (err instanceof HttpException) {
+          throw err;
+        }
+
+        // Otherwise, create a new Internal Server Error exception
+        throw new InternalServerErrorException('Internal Server Error');
       }),
     );
   }
