@@ -41,28 +41,44 @@ describe('PokedexController', () => {
   });
 
   describe('getPokemon', () => {
-    it('should return an array of Pokémon', async () => {
-      const pokemonArray = [
+    it('should return a query and results object', async () => {
+      const res = await pokedexController.getPokemon();
+
+      expect(res).toHaveProperty('query');
+      expect(res).toHaveProperty('results');
+    });
+
+    it('should return an empty array within the results object', async () => {
+      const value = [];
+
+      mockPokedexService.getPokemon.mockReturnValueOnce(value);
+
+      const res = await pokedexController.getPokemon();
+
+      expect(res.results).toEqual([]);
+    });
+
+    it('should return an array of Pokémon within the results object', async () => {
+      const value = [
         {
           name: 'Bulbasaur',
         },
       ];
 
-      mockPokedexService.getPokemon.mockResolvedValueOnce(pokemonArray);
+      mockPokedexService.getPokemon.mockReturnValueOnce(value);
 
       const res = await pokedexController.getPokemon();
 
-      expect(res).toEqual(pokemonArray);
+      expect(res.results).toEqual(value);
     });
 
-    it('should return an empty array', async () => {
-      const pokemonArray = [];
-
-      mockPokedexService.getPokemon.mockResolvedValueOnce(pokemonArray);
-
+    it('should return default query params within the query object', async () => {
       const res = await pokedexController.getPokemon();
 
-      expect(res).toEqual(pokemonArray);
+      expect(res.query).toHaveProperty('limit');
+      expect(res.query).toHaveProperty('offset');
+      expect(res.query).toHaveProperty('sort');
+      expect(res.query).toHaveProperty('order');
     });
 
     it('should call getPokemon() with default query parameters when none are provided', async () => {
@@ -112,31 +128,34 @@ describe('PokedexController', () => {
   });
 
   describe('getPokemonById', () => {
-    it('should return an array of Pokémon', async () => {
-      const id = 1;
+    it('should return a results object', async () => {
+      const res = await pokedexController.getPokemon();
 
-      const pokemonArray = [
+      expect(res).toHaveProperty('results');
+    });
+
+    it('should return an empty array within the results object', async () => {
+      const value = [];
+
+      mockPokedexService.getPokemonById.mockReturnValueOnce(value);
+
+      const res = await pokedexController.getPokemonById(1);
+
+      expect(res.results).toEqual(value);
+    });
+
+    it('should return an array of Pokémon within the results object', async () => {
+      const value = [
         {
-          id,
           name: 'Bulbasaur',
         },
       ];
 
-      mockPokedexService.getPokemonById.mockResolvedValueOnce(pokemonArray);
-
-      const res = await pokedexController.getPokemonById(id);
-
-      expect(res).toEqual(pokemonArray);
-    });
-
-    it('should return an empty array', async () => {
-      const pokemonArray = [];
-
-      mockPokedexService.getPokemonById.mockResolvedValueOnce(pokemonArray);
+      mockPokedexService.getPokemonById.mockReturnValueOnce(value);
 
       const res = await pokedexController.getPokemonById(1);
 
-      expect(res).toEqual(pokemonArray);
+      expect(res.results).toEqual(value);
     });
 
     it('should call getPokemonById() with the provided path parameter', async () => {
