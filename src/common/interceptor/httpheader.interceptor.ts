@@ -12,33 +12,44 @@ export class HttpHeaderInterceptor implements NestInterceptor {
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
     return next.handle().pipe(
-      map((data) => {
+      map(({ query, results }) => {
         const ctx = context.switchToHttp();
         const req = ctx.getRequest();
         const res = ctx.getResponse();
 
         const isSuccessful = res.statusCode >= 200 && res.statusCode < 300;
 
+        // Set headers for successful responses
         if (isSuccessful) {
-          const etag = ETag(JSON.stringify(data));
+          const etag = ETag(JSON.stringify(results));
           const doesMatchETag = req.headers['if-none-match'] === etag;
-
-          const itemCount = data.length;
 
           res.setHeader('Cache-Control', 'max-age=3600, public');
           res.setHeader('ETag', etag);
-          res.setHeader('X-Item-Count', itemCount);
 
+          // Return 304 if match is found
           if (doesMatchETag) {
             res.status(304);
 
             return;
           }
 
-          /**
-           * @todo Set custom headers
-           */
-          return data;
+          const itemCount = results.length;
+
+          res.setHeader('X-Item-Count', itemCount);
+
+          const path = req.route.path;
+
+          const isPokedexRoute = path.startsWith('/pokedex');
+
+          // Apply custom headers for certain routes
+          if (isPokedexRoute) {
+            if (path === '/pokedex') {
+              // Apply custom headers for root pokedex path
+            }
+          }
+
+          return results;
         }
       }),
     );
