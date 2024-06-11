@@ -25,8 +25,8 @@ export class PokedexController implements IPokedexController {
 
   @Get()
   async getPokemon(
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
-    @Query('offset', new DefaultValuePipe(0), ParseIntPipe) offset: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+    @Query('offset', new DefaultValuePipe(0), ParseIntPipe) offset: number = 0,
     @Query('sort') sort: string = '',
     @Query('order') order: string = 'asc',
   ): Promise<IPokedexResponse> {
