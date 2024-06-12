@@ -53,6 +53,9 @@ export class HttpHeaderInterceptor implements NestInterceptor {
             if (path === '/pokedex') {
               const { limit } = query;
 
+              /**
+               * @todo Set custom headers for /pokedex
+               */
               res.setHeader('X-Total-Count', null);
               res.setHeader('X-Page-Count', null);
               res.setHeader('X-Current-Page', null);
