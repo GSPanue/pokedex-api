@@ -66,8 +66,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               example:
-                status: '400'
                 message: 'Invalid value provided for the parameter "Limit". Please provide a value between 1 and 100.'
+                error: Bad Request
+                statusCode: 400
         default:
           description: Unexpected error
           headers:
@@ -127,8 +128,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               example:
-                status: '404'
                 message: 'Pokémon {id} not found'
+                error: Not Found
+                statusCode: 404
         default:
           description: Unexpected error
           headers:
@@ -357,12 +359,18 @@ components:
       description: The response when an error occurs
       type: object
       properties:
-        status:
-          description: The HTTP Status Code
-          type: string
         message:
           description: The message detailing the error
           type: string
+          example: Cannot GET /
+        error:
+          description: The type of error that occurred
+          type: string
+          example: Not Found
+        statusCode:
+          description: The HTTP Status Code
+          type: integer
+          example: 404
   parameters:
     Id:
       name: id
