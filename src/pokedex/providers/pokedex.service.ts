@@ -2,18 +2,15 @@ import { Injectable } from '@nestjs/common';
 
 import { IPokedexService, IPokemon } from '../interfaces';
 
+import type { GetPokemonDto, GetPokemonByIdDto } from '../dto';
+
 @Injectable()
 export class PokedexService implements IPokedexService {
-  getPokemon(
-    limit: number,
-    offset: number,
-    sort: string,
-    order: string,
-  ): IPokemon[] {
+  getPokemon(query: GetPokemonDto): IPokemon[] {
     return [];
   }
 
-  getPokemonById(id: number): IPokemon[] {
+  getPokemonById(params: GetPokemonByIdDto): IPokemon[] {
     return [];
   }
 }
