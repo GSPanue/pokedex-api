@@ -42,7 +42,7 @@ describe('PokedexController', () => {
 
   describe('getPokemon', () => {
     it('should return a query and results object', async () => {
-      const res = await pokedexController.getPokemon();
+      const res = await pokedexController.getPokemon({});
 
       expect(res).toHaveProperty('query');
       expect(res).toHaveProperty('results');
@@ -53,7 +53,7 @@ describe('PokedexController', () => {
 
       mockPokedexService.getPokemon.mockReturnValueOnce(value);
 
-      const res = await pokedexController.getPokemon();
+      const res = await pokedexController.getPokemon({});
 
       expect(res.results).toEqual([]);
     });
@@ -67,38 +67,9 @@ describe('PokedexController', () => {
 
       mockPokedexService.getPokemon.mockReturnValueOnce(value);
 
-      const res = await pokedexController.getPokemon();
+      const res = await pokedexController.getPokemon({});
 
       expect(res.results).toEqual(value);
-    });
-
-    it('should return default query params within the query object', async () => {
-      const res = await pokedexController.getPokemon();
-
-      expect(res.query).toHaveProperty('limit');
-      expect(res.query).toHaveProperty('offset');
-      expect(res.query).toHaveProperty('sort');
-      expect(res.query).toHaveProperty('order');
-    });
-
-    it('should call getPokemon() with default query parameters when none are provided', async () => {
-      const query = {
-        limit: 10,
-        offset: 0,
-        sort: '',
-        order: 'asc',
-      };
-
-      await pokedexController.getPokemon();
-
-      expect(mockPokedexService.getPokemon).toHaveBeenCalledWith(
-        query.limit,
-        query.offset,
-        query.sort,
-        query.order,
-      );
-
-      expect(mockPokedexService.getPokemon).toHaveBeenCalledTimes(1);
     });
 
     it('should call getPokemon() with the provided query parameters', async () => {
@@ -109,42 +80,33 @@ describe('PokedexController', () => {
         order: 'desc',
       };
 
-      await pokedexController.getPokemon(
-        query.limit,
-        query.offset,
-        query.sort,
-        query.order,
-      );
+      await pokedexController.getPokemon(query);
 
-      expect(mockPokedexService.getPokemon).toHaveBeenCalledWith(
-        query.limit,
-        query.offset,
-        query.sort,
-        query.order,
-      );
-
+      expect(mockPokedexService.getPokemon).toHaveBeenCalledWith(query);
       expect(mockPokedexService.getPokemon).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('getPokemonById', () => {
     it('should return a results object', async () => {
-      const res = await pokedexController.getPokemon();
+      const res = await pokedexController.getPokemon({});
 
       expect(res).toHaveProperty('results');
     });
 
     it('should return an empty array within the results object', async () => {
+      const params = { id: 1 };
       const value = [];
 
       mockPokedexService.getPokemonById.mockReturnValueOnce(value);
 
-      const res = await pokedexController.getPokemonById(1);
+      const res = await pokedexController.getPokemonById(params);
 
       expect(res.results).toEqual(value);
     });
 
     it('should return an array of Pokémon within the results object', async () => {
+      const params = { id: 1 };
       const value = [
         {
           name: 'Bulbasaur',
@@ -153,18 +115,17 @@ describe('PokedexController', () => {
 
       mockPokedexService.getPokemonById.mockReturnValueOnce(value);
 
-      const res = await pokedexController.getPokemonById(1);
+      const res = await pokedexController.getPokemonById(params);
 
       expect(res.results).toEqual(value);
     });
 
     it('should call getPokemonById() with the provided path parameter', async () => {
-      const id = 1;
+      const params = { id: 1 };
 
-      await pokedexController.getPokemonById(id);
+      await pokedexController.getPokemonById(params);
 
-      expect(mockPokedexService.getPokemonById).toHaveBeenCalledWith(id);
-
+      expect(mockPokedexService.getPokemonById).toHaveBeenCalledWith(params);
       expect(mockPokedexService.getPokemonById).toHaveBeenCalledTimes(1);
     });
   });
