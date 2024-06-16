@@ -5,6 +5,7 @@ import {
   Max,
   IsString,
   IsIn,
+  MinLength,
 } from 'class-validator';
 
 export class GetPokemonDto {
@@ -21,10 +22,12 @@ export class GetPokemonDto {
 
   @IsOptional()
   @IsString()
+  @MinLength(1)
   public sort?: string;
 
   @IsOptional()
   @IsIn(['asc', 'desc'])
+  @MinLength(3)
   public order?: string;
 }
 
