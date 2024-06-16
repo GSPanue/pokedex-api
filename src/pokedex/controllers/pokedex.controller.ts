@@ -1,8 +1,8 @@
 import { Controller, Inject, Get, Query, Param } from '@nestjs/common';
 
 import { POKEDEX_SERVICE } from '../constants';
+import { GetPokemonDto, GetPokemonByIdDto } from '../dto';
 
-import type { GetPokemonDto, GetPokemonByIdDto } from '../dto';
 import type {
   IPokedexController,
   IPokedexService,
