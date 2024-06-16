@@ -1,3 +1,5 @@
+import { GetPokemonDto, GetPokemonByIdDto } from '../dto/pokedex.dto';
+
 export interface IPokemon {
   id: number;
   name: string;
@@ -26,34 +28,19 @@ export interface IPokemon {
 }
 
 export interface IPokedexController {
-  getPokemon(
-    limit?: number,
-    offset?: number,
-    sort?: string,
-    order?: string,
-  ): Promise<IPokedexResponse>;
+  getPokemon(query: GetPokemonDto): Promise<IPokedexResponse>;
 
-  getPokemonById(id: number): Promise<IPokedexResponse>;
+  getPokemonById(params: GetPokemonByIdDto): Promise<IPokedexResponse>;
 }
 
 export interface IPokedexService {
-  getPokemon(
-    limit: number,
-    offset: number,
-    sort: string,
-    order: string,
-  ): IPokemon[];
+  getPokemon(query: GetPokemonDto): IPokemon[];
 
-  getPokemonById(id: number): IPokemon[];
+  getPokemonById(params: GetPokemonByIdDto): IPokemon[];
 }
 
 export interface IPokedexResponse {
-  query?: {
-    limit?: number;
-    offset?: number;
-    sort?: string;
-    order?: string;
-  };
+  query?: GetPokemonDto;
 
   results: IPokemon[];
 }
