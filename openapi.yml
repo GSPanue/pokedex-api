@@ -214,6 +214,7 @@ components:
       description: The ID of the Pokémon entry in the Pokédex
       type: integer
       format: int32
+      minimum: 1
       example: 1
     Limit:
       description: The number of Pokémon entries to retrieve in a single request
