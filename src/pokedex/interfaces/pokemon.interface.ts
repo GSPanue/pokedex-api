@@ -1,4 +1,4 @@
-import { GetPokemonDto, GetPokemonByIdDto } from '../dto/pokedex.dto';
+import { GetPokemonDto, GetPokemonByIdDto } from '../dto';
 
 export interface IPokemon {
   id: number;
