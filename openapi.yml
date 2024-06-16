@@ -66,7 +66,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               example:
-                message: 'Invalid value provided for the parameter "Limit". Please provide a value between 1 and 100.'
+                message: 'Check that the parameters were correct'
                 error: Bad Request
                 statusCode: 400
         default:
