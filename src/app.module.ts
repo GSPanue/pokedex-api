@@ -1,5 +1,7 @@
 import { Module, NestModule } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import type { MiddlewareConsumer } from '@nestjs/common';
 
@@ -11,7 +13,24 @@ import {
 import { PokedexModule } from './pokedex';
 
 @Module({
-  imports: [PokedexModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      useFactory: (config: ConfigService) => ({
+        type: process.env.DB_TYPE as 'postgres',
+        host: config.get<string>('DB_HOST'),
+        port: config.get<number>('DB_PORT'),
+        username: config.get<string>('DB_USER'),
+        password: config.get<string>('DB_PASSWORD'),
+        database: config.get<string>('DB_NAME'),
+        autoLoadEntities: true,
+      }),
+      inject: [ConfigService],
+    }),
+    PokedexModule,
+  ],
   providers: [
     {
       provide: APP_FILTER,
