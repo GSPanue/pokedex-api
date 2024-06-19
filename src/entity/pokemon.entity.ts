@@ -55,37 +55,37 @@ export class Pokemon {
   @Column({ nullable: false })
   name_id: number;
 
-  @OneToOne(() => Name, { nullable: false })
+  @OneToOne(() => Name, { nullable: false, eager: true })
   @JoinColumn({ name: 'name_id' })
   name: Name;
 
-  @ManyToOne(() => Generation, { nullable: false })
+  @ManyToOne(() => Generation, { nullable: false, eager: true })
   generation: Generation;
 
-  @ManyToOne(() => Rarity, { nullable: false })
+  @ManyToOne(() => Rarity, { nullable: false, eager: true })
   rarity: Rarity;
 
-  @ManyToOne(() => Species, { nullable: false })
+  @ManyToOne(() => Species, { nullable: false, eager: true })
   species: Species;
 
-  @ManyToOne(() => Type, { nullable: false })
+  @ManyToOne(() => Type, { nullable: false, eager: true })
   type_1: Type;
 
-  @ManyToOne(() => Type, { nullable: true })
+  @ManyToOne(() => Type, { nullable: true, eager: true })
   type_2: Type;
 
-  @ManyToOne(() => Height, { nullable: false })
+  @ManyToOne(() => Height, { nullable: false, eager: true })
   height: Height;
 
-  @ManyToOne(() => Weight, { nullable: false })
+  @ManyToOne(() => Weight, { nullable: false, eager: true })
   weight: Weight;
 
-  @ManyToOne(() => Ability, { nullable: true })
+  @ManyToOne(() => Ability, { nullable: true, eager: true })
   ability_1: Ability;
 
-  @ManyToOne(() => Ability, { nullable: true })
+  @ManyToOne(() => Ability, { nullable: true, eager: true })
   ability_2: Ability;
 
-  @ManyToOne(() => Ability, { nullable: true })
+  @ManyToOne(() => Ability, { nullable: true, eager: true })
   ability_hidden: Ability;
 }

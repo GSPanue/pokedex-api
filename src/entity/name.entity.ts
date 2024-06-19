@@ -28,9 +28,9 @@ export class Name {
   @Column({ nullable: false })
   name: string;
 
-  @ManyToOne(() => JapaneseName, { nullable: false })
+  @ManyToOne(() => JapaneseName, { nullable: false, eager: true })
   japanese_name: JapaneseName;
 
-  @ManyToOne(() => GermanName, { nullable: false })
+  @ManyToOne(() => GermanName, { nullable: false, eager: true })
   german_name: GermanName;
 }
