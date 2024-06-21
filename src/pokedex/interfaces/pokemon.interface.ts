@@ -34,9 +34,9 @@ export interface IPokedexController {
 }
 
 export interface IPokedexService {
-  getPokemon(query: GetPokemonDto): IPokemon[];
+  getPokemon(query: GetPokemonDto): Promise<IPokemon[]>;
 
-  getPokemonById(params: GetPokemonByIdDto): IPokemon[];
+  getPokemonById(params: GetPokemonByIdDto): Promise<IPokemon[]>;
 }
 
 export interface IPokedexResponse {
