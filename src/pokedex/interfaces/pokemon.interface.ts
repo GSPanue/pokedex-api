@@ -1,5 +1,3 @@
-import { GetPokemonDto, GetPokemonByIdDto } from '../dto';
-
 export interface IPokemon {
   id: number;
   name: string;
@@ -25,22 +23,4 @@ export interface IPokemon {
     value: number;
     unit: string;
   };
-}
-
-export interface IPokedexController {
-  getPokemon(query: GetPokemonDto): Promise<IPokedexResponse>;
-
-  getPokemonById(params: GetPokemonByIdDto): Promise<IPokedexResponse>;
-}
-
-export interface IPokedexService {
-  getPokemon(query: GetPokemonDto): Promise<IPokemon[]>;
-
-  getPokemonById(params: GetPokemonByIdDto): Promise<IPokemon[]>;
-}
-
-export interface IPokedexResponse {
-  query?: GetPokemonDto;
-
-  results: IPokemon[];
 }
