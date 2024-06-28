@@ -10,7 +10,7 @@ import {
   HttpHeaderMiddleware,
   HttpHeaderFilter,
   HttpHeaderInterceptor,
-} from '@src/common';
+} from '@common';
 import { PokedexModule } from './pokedex';
 
 @Module({

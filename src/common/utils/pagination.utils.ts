@@ -1,4 +1,4 @@
-import type { ICalculateSkip, ICalculateTotalPages } from '@interfaces';
+import type { ICalculateSkip, ICalculateTotalPages } from '@common';
 
 export const calculateSkip: ICalculateSkip = (limit, offset) => limit * offset;
 
