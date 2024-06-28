@@ -24,7 +24,9 @@
       "@scripts/utils": ["scripts/utils"],
       "@scripts/shared": ["scripts/shared"],
       "@src/*": ["src/*"],
-      "@entities": ["src/entity"]
+      "@entities": ["src/entity"],
+      "@utils": ["src/common/utils"],
+      "@interfaces": ["src/common/interfaces"]
     }
   },
   "ts-node": {
