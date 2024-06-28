@@ -2,7 +2,7 @@ import { plainToClass } from 'class-transformer';
 
 import { PokemonDto } from '../dto';
 
-import type { Pokemon } from '@src/entity';
+import type { Pokemon } from '@entities';
 import type { IPokemon } from '../interfaces';
 
 export const transformToPokemonArray = (results: Pokemon[]): IPokemon[] =>

@@ -13,7 +13,7 @@ import {
   Height,
   Weight,
   Ability,
-} from '@src/entity';
+} from '@entities';
 
 import { PokedexController } from './controllers';
 import { PokedexService } from './providers';

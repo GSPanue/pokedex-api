@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Pokemon } from '@src/entity';
+import { Pokemon } from '@entities';
 import { IPokedexService, IPokemon } from '../interfaces';
 
 import type { GetPokemonDto, GetPokemonByIdDto } from '../dto';
