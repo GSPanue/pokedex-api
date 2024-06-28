@@ -23,12 +23,12 @@ export class GetPokemonDto {
   @IsOptional()
   @IsString()
   @MinLength(1)
-  public sort?: string;
+  public sort?: string = 'id';
 
   @IsOptional()
   @IsIn(['asc', 'desc'])
   @MinLength(3)
-  public order?: string;
+  public order?: string = 'asc';
 }
 
 export class GetPokemonByIdDto {

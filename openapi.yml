@@ -234,10 +234,12 @@ components:
     Sort:
       description: The name of the attribute to sort
       type: string
+      default: id
       example: generation
     Order:
       description: The order in which the entries should be sorted
       type: string
+      default: asc
       example: asc
       enum:
         - asc
