@@ -22,11 +22,12 @@ export class PokedexController implements IPokedexController {
      * @todo Find all Pokémon
      */
 
-    const results = await this.pokedex.getPokemon(query);
+    const { results, count } = await this.pokedex.getPokemon(query);
 
     return {
       query,
       results,
+      count,
     };
   }
 
@@ -38,10 +39,11 @@ export class PokedexController implements IPokedexController {
      * @todo Find Pokémon by ID
      */
 
-    const results = await this.pokedex.getPokemonById(params);
+    const { results, count } = await this.pokedex.getPokemonById(params);
 
     return {
       results,
+      count,
     };
   }
 }
