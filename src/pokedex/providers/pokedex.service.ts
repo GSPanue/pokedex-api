@@ -3,8 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Pokemon } from '@entities';
-import { IPokedexService, IPokemon } from '../interfaces';
+import { calculateSkip } from '@common';
+import { transformToPokemonArray } from '../utils';
 
+import type {
+  IPokedexResponse,
+  IPokedexService,
+  IPokemon,
+} from '../interfaces';
 import type { GetPokemonDto, GetPokemonByIdDto } from '../dto';
 
 @Injectable()
@@ -14,11 +20,31 @@ export class PokedexService implements IPokedexService {
     private pokemonRepository: Repository<Pokemon>,
   ) {}
 
-  getPokemon(query: GetPokemonDto): IPokemon[] {
-    return [];
+  async getPokemon(query: GetPokemonDto): Promise<IPokedexResponse> {
+    const { limit, offset, sort, order } = query;
+
+    const skip = calculateSkip(limit, offset);
+
+    const [results, count] = await this.pokemonRepository.findAndCount({
+      skip,
+      take: limit,
+      order: {
+        [sort]: order,
+      },
+    });
+
+    const transformedResults: IPokemon[] = transformToPokemonArray(results);
+
+    return {
+      results: transformedResults,
+      count,
+    };
   }
 
-  getPokemonById(params: GetPokemonByIdDto): IPokemon[] {
-    return [];
+  async getPokemonById(params: GetPokemonByIdDto): Promise<IPokedexResponse> {
+    return {
+      results: [],
+      count: 0,
+    };
   }
 }
