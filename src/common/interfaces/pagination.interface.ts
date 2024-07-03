@@ -2,16 +2,12 @@ export interface ICalculateSkip {
   (limit: number, offset: number): number;
 }
 
-export interface ICalculatePageCount {
-  (limit: number, offset: number): number;
-}
-
 export interface ICalculateItemCount {
   (results): number;
 }
 
 export interface ICalculatePageCount {
-  (limit: number, count: number): number;
+  (limit: number, offset: number): number;
 }
 
 export interface ICalculateCurrentPage {
