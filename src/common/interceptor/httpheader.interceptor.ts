@@ -8,6 +8,15 @@ import { catchError } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import * as ETag from 'etag';
 
+import {
+  calculateItemCount,
+  calculatePageCount,
+  calculateCurrentPage,
+  calculatePageSize,
+  hasNextPage,
+  hasPreviousPage,
+} from '@common';
+
 import type { CallHandler, ExecutionContext } from '@nestjs/common';
 import type { Observable } from 'rxjs';
 
@@ -22,7 +31,7 @@ export class HttpHeaderInterceptor implements NestInterceptor {
     const res = ctx.getResponse();
 
     return next.handle().pipe(
-      tap(({ query, results }) => {
+      tap(({ query, results, count }) => {
         const isSuccessful = res.statusCode >= 200 && res.statusCode < 300;
 
         // Set headers for successful responses
@@ -40,7 +49,7 @@ export class HttpHeaderInterceptor implements NestInterceptor {
             return;
           }
 
-          const itemCount = results.length;
+          const itemCount = calculateItemCount(results);
 
           res.setHeader('X-Item-Count', itemCount);
 
@@ -51,17 +60,21 @@ export class HttpHeaderInterceptor implements NestInterceptor {
           // Apply custom headers for certain routes
           if (isPokedexRoute) {
             if (path === '/pokedex') {
-              const { limit } = query;
+              const { limit, offset } = query;
 
-              /**
-               * @todo Set custom headers for /pokedex
-               */
-              res.setHeader('X-Total-Count', null);
-              res.setHeader('X-Page-Count', null);
-              res.setHeader('X-Current-Page', null);
-              res.setHeader('X-Page-Size', limit);
-              res.setHeader('X-Has-Next-Page', null);
-              res.setHeader('X-Has-Previous-Page', null);
+              const totalCount = count;
+              const pageCount = calculatePageCount(limit, count);
+              const currentPage = calculateCurrentPage(offset);
+              const pageSize = calculatePageSize(limit);
+              const nextPage = hasNextPage(offset, pageCount);
+              const previousPage = hasPreviousPage(offset, pageCount);
+
+              res.setHeader('X-Total-Count', totalCount);
+              res.setHeader('X-Page-Count', pageCount);
+              res.setHeader('X-Current-Page', currentPage);
+              res.setHeader('X-Page-Size', pageSize);
+              res.setHeader('X-Has-Next-Page', nextPage);
+              res.setHeader('X-Has-Previous-Page', previousPage);
             }
           }
         }
