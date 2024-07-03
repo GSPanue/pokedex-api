@@ -23,4 +23,5 @@ export const calculatePageSize: ICalculatePageSize = (limit) => limit;
 export const hasNextPage: IHasNextPage = (offset, pageCount) =>
   offset < pageCount - 1;
 
-export const hasPreviousPage: IHasPreviousPage = (offset) => offset > 0;
+export const hasPreviousPage: IHasPreviousPage = (offset, pageCount) =>
+  offset > 0 && offset < pageCount;
