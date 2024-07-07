@@ -46,6 +46,9 @@ export class PokedexService implements IPokedexService {
       where: {
         pokedex_id: id,
       },
+      order: {
+        id: 'asc',
+      },
     });
 
     const transformedResults: IPokemon[] = transformToPokemonArray(results);
