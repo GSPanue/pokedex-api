@@ -30,10 +30,6 @@ export class PokedexController implements IPokedexController {
   async getPokemonById(
     @Param() params: GetPokemonByIdDto,
   ): Promise<IPokedexResponse> {
-    /**
-     * @todo Find Pokémon by ID
-     */
-
     const response = await this.pokedex.getPokemonById(params);
 
     return {
