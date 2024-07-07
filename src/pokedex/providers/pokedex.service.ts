@@ -40,9 +40,19 @@ export class PokedexService implements IPokedexService {
   }
 
   async getPokemonById(params: GetPokemonByIdDto): Promise<IPokedexResponse> {
+    const { id } = params;
+
+    const [results, count] = await this.pokemonRepository.findAndCount({
+      where: {
+        pokedex_id: id,
+      },
+    });
+
+    const transformedResults: IPokemon[] = transformToPokemonArray(results);
+
     return {
-      results: [],
-      count: 0,
+      results: transformedResults,
+      count,
     };
   }
 }
