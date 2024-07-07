@@ -18,10 +18,6 @@ export class PokedexController implements IPokedexController {
 
   @Get()
   async getPokemon(@Query() query: GetPokemonDto): Promise<IPokedexResponse> {
-    /**
-     * @todo Find all Pokémon
-     */
-
     const response = await this.pokedex.getPokemon(query);
 
     return {
