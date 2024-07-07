@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 import { Pokemon } from '@entities';
 import { calculateSkip } from '@common';
-import { transformToPokemonArray } from '../utils';
+import { transformToPokemonArray, createOrderObject } from '../utils';
 
 import type {
   IPokedexResponse,
@@ -28,9 +28,7 @@ export class PokedexService implements IPokedexService {
     const [results, count] = await this.pokemonRepository.findAndCount({
       skip,
       take: limit,
-      order: {
-        [sort]: order,
-      },
+      order: createOrderObject(sort, order),
     });
 
     const transformedResults: IPokemon[] = transformToPokemonArray(results);
