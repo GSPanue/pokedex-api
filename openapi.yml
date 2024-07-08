@@ -51,7 +51,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
         '400':
-          description: Unable to get a list of Pokémon due to invalid value
+          description: Unable to get a list of Pokémon due to invalid query parameters
           headers:
             Content-Type:
               $ref: '#/components/headers/Content-Type'
