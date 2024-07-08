@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { isEmpty } from 'lodash';
 
 import { Pokemon } from '@entities';
 import { calculateSkip } from '@common';
@@ -52,6 +53,12 @@ export class PokedexService implements IPokedexService {
     });
 
     const transformedResults: IPokemon[] = transformToPokemonArray(results);
+
+    const hasNoResults = isEmpty(results);
+
+    if (hasNoResults) {
+      throw new NotFoundException(`Not Found`);
+    }
 
     return {
       results: transformedResults,

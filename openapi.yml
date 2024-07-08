@@ -128,7 +128,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               example:
-                message: 'Pokémon {id} not found'
+                message: 'Not Found'
                 error: Not Found
                 statusCode: 404
         default:
