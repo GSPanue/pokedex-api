@@ -24,9 +24,13 @@ A RESTful Pokédex API
 
 ## Features
 
-- Third normal form (3NF) database schema
-- Dataset processing script located in `scripts` which cleans the dataset and produces a new dataset in `dataset/processed`
-- Dataset importing script located in `scripts` which imports the processed dataset in `dataset/processed` into a PostgreSQL database
+- Large dataset with data on 1045 Pokémon
+- OpenAPI 3.0.3 specification
+- Normalised database schema
+- Dataset cleansing, processing, and importing scripts
+- Web caching with `Cache-Control` and `ETag`
+- Zero-indexed pagination with `limit` and `offset`
+- Pagination metadata in response headers (`X-Item-Count`, `X-Page-Count`, etc.)
 
 ## Design
 
