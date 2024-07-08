@@ -55,11 +55,11 @@ export class HttpHeaderInterceptor implements NestInterceptor {
 
           const path = req.route.path;
 
-          const isPokedexRoute = path.startsWith('/pokedex');
+          const isPokedexRoute = path.startsWith('/api/v1/pokedex');
 
           // Apply custom headers for certain routes
           if (isPokedexRoute) {
-            if (path === '/pokedex') {
+            if (path === '/api/v1/pokedex') {
               const { limit, offset } = query;
 
               const totalCount = count;
