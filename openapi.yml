@@ -365,15 +365,15 @@ components:
         message:
           description: The message detailing the error
           type: string
-          example: Cannot GET /
+          example: Internal Server Error
         error:
           description: The type of error that occurred
           type: string
-          example: Not Found
+          example: Internal Server Error
         statusCode:
           description: The HTTP Status Code
           type: integer
-          example: 404
+          example: 500
   parameters:
     Id:
       name: id
