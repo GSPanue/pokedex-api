@@ -56,7 +56,7 @@ const start = async () => {
     const processedData = processData(data, keys);
 
     console.log('Exporting data...\n');
-    await exportData(outputPath, data);
+    await exportData(outputPath, processedData);
 
     const summary = {
       rows: processedData.length,
