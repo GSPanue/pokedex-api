@@ -17,7 +17,7 @@ const trimStringValues: TrimStringValues = (data) => {
   // Trim all data of type string
   forOwn(trimmedData, (value, key) => {
     if (isString(value)) {
-      data[key] = value.trim();
+      trimmedData[key] = value.trim();
     }
   });
 
