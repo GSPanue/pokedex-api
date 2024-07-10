@@ -2,6 +2,8 @@ import { promises as fs } from 'fs';
 import { unparse } from 'papaparse';
 import { forOwn, isEmpty, size, isString, isNull, includes } from 'lodash';
 
+import { removePokemonFromSpecies } from '@scripts/shared';
+
 import type { Config, PokemonData } from '@scripts/shared';
 
 type TrimStringValuesReturnType = PokemonData;
@@ -15,7 +17,7 @@ const trimStringValues: TrimStringValues = (data) => {
   // Trim all data of type string
   forOwn(trimmedData, (value, key) => {
     if (isString(value)) {
-      data[key] = value.trim();
+      trimmedData[key] = value.trim();
     }
   });
 
@@ -51,10 +53,17 @@ interface ProcessData {
 const processData: ProcessData = (data, { requiredKeys }) => {
   const missingData = [];
 
-  // Trim all data and find any missing data
-  data.forEach((obj, index) => {
-    const trimmedData = trimStringValues(obj);
+  data = data.map((obj, index) => {
+    // Remove 'Pokémon' from species string
+    const species = removePokemonFromSpecies(obj.species);
 
+    // Trim data
+    const trimmedData = trimStringValues({
+      ...obj,
+      species,
+    });
+
+    // Find any missing data
     const missingDataKeys = findMissingData(trimmedData, requiredKeys);
     const hasMissingData = !isEmpty(missingDataKeys);
 
@@ -66,6 +75,8 @@ const processData: ProcessData = (data, { requiredKeys }) => {
         keys: missingDataKeys,
       });
     }
+
+    return trimmedData;
   });
 
   const hasMissingData = !isEmpty(missingData);
