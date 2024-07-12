@@ -236,6 +236,21 @@ components:
       type: string
       default: id
       example: generation
+      enum:
+        - id
+        - name
+        - german_name
+        - japanese_name
+        - generation
+        - rarity
+        - species
+        - ability_1
+        - ability_2
+        - ability_hidden
+        - type_1
+        - type_2
+        - height
+        - weight
     Order:
       description: The order in which the entries should be sorted
       type: string
