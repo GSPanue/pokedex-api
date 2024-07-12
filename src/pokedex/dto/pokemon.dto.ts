@@ -105,7 +105,7 @@ export class PokemonDto {
 
   @Expose()
   @Transform(({ obj: { type_1, type_2 } }) => ({
-    type_1: type_1 ? type_1.element : null,
+    type_1: type_1.element,
     type_2: type_2 ? type_2.element : null,
   }))
   types: TypesDto;
