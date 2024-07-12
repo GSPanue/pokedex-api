@@ -13,6 +13,9 @@ export class HttpHeaderFilter implements ExceptionFilter {
 
     res.setHeader('Cache-Control', 'no-store, must-revalidate');
 
+    res.removeHeader('X-Powered-By');
+    res.removeHeader('Connection');
+    res.removeHeader('Keep-Alive');
     res.removeHeader('ETag');
     res.removeHeader('X-Total-Count');
     res.removeHeader('X-Item-Count');
