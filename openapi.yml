@@ -297,7 +297,7 @@ components:
     HeightValue:
       description: The numerical value of the height
       type: number
-      example: '0.70'
+      example: 0.7
     Weight:
       description: The weight of the Pokémon
       type: object
@@ -311,7 +311,7 @@ components:
     WeightValue:
       description: The numerical value of the weight
       type: number
-      example: '6.90'
+      example: 6.9
     PokemonItem:
       description: The structured representation of a Pokémon entry in the Pokédex
       type: object
