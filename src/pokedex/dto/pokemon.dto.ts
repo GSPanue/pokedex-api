@@ -97,16 +97,16 @@ export class PokemonDto {
 
   @Expose()
   @Transform(({ obj: { ability_1, ability_2, ability_hidden } }) => ({
-    ability_1: ability_1 ? ability_1.name : null,
-    ability_2: ability_2 ? ability_2.name : null,
-    ability_hidden: ability_hidden ? ability_hidden.name : null,
+    ability_1: ability_1 ? ability_1.name : '',
+    ability_2: ability_2 ? ability_2.name : '',
+    ability_hidden: ability_hidden ? ability_hidden.name : '',
   }))
   abilities: AbilityDto;
 
   @Expose()
   @Transform(({ obj: { type_1, type_2 } }) => ({
     type_1: type_1.element,
-    type_2: type_2 ? type_2.element : null,
+    type_2: type_2 ? type_2.element : '',
   }))
   types: TypesDto;
 
