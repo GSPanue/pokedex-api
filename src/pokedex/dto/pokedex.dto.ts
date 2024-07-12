@@ -3,7 +3,6 @@ import {
   IsNumber,
   Min,
   Max,
-  IsString,
   IsIn,
   MinLength,
 } from 'class-validator';
@@ -21,8 +20,22 @@ export class GetPokemonDto {
   public offset?: number = 0;
 
   @IsOptional()
-  @IsString()
-  @MinLength(1)
+  @IsIn([
+    'id',
+    'name',
+    'german_name',
+    'japanese_name',
+    'generation',
+    'rarity',
+    'species',
+    'ability_1',
+    'ability_2',
+    'ability_hidden',
+    'type_1',
+    'type_2',
+    'height',
+    'weight',
+  ])
   public sort?: string = 'id';
 
   @IsOptional()
