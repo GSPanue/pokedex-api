@@ -22,6 +22,8 @@ paths:
         '200':
           description: OK
           headers:
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
             Content-Type:
               $ref: '#/components/headers/Content-Type'
             Content-Length:
@@ -53,6 +55,8 @@ paths:
         '400':
           description: Unable to get a list of Pokémon due to invalid query parameters
           headers:
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
             Content-Type:
               $ref: '#/components/headers/Content-Type'
             Content-Length:
@@ -72,6 +76,8 @@ paths:
         default:
           description: Unexpected error
           headers:
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
             Content-Type:
               $ref: '#/components/headers/Content-Type'
             Content-Length:
@@ -96,6 +102,8 @@ paths:
         '200':
           description: OK
           headers:
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
             Content-Type:
               $ref: '#/components/headers/Content-Type'
             Content-Length:
@@ -115,6 +123,8 @@ paths:
         '404':
           description: Pokémon not found
           headers:
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
             Content-Type:
               $ref: '#/components/headers/Content-Type'
             Content-Length:
@@ -134,6 +144,8 @@ paths:
         default:
           description: Unexpected error
           headers:
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
             Content-Type:
               $ref: '#/components/headers/Content-Type'
             Content-Length:
@@ -148,6 +160,11 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   headers:
+    Access-Control-Allow-Origin:
+      description: The origins that are allowed to access the resource
+      schema:
+        type: string
+        example: '*'
     Content-Type:
       description: The type of data contained in the response
       schema:
