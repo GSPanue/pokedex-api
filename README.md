@@ -14,14 +14,15 @@ A RESTful Pokédex API
 3. [Usage](#usage)
     1. [Get All Pokémon](#get-all-pokémon)
     2. [Get Pokémon by ID](#get-pokémon-by-id)
-4. [Getting Started](#getting-started)
-    1. [Installing the Dependencies](#1-install-the-dependencies)
-    2. [Process & Import the Pokédex Dataset](#2-process--import-the-pokédex-dataset)
-    3. [Start the Server](#3-start-the-server)
-5. [Testing & Debugging](#testing--debugging)
-    1. [Testing](#testing)
-    2. [Debugging](#debugging)
-6. [Building the Project](#building-the-project)
+4. [Development](#development)
+    1. [Getting Started](#getting-started)
+        1. [Installing the Dependencies](#1-install-the-dependencies)
+        2. [Process & Import the Pokédex Dataset](#2-process--import-the-pokédex-dataset)
+        3. [Start the Server](#3-start-the-server)
+    2. [Testing & Debugging](#testing--debugging)
+        1. [Testing](#testing)
+        2. [Debugging](#debugging)
+    3. [Building the Project](#building-the-project)
 7. [Version](#version)
 8. [Author](#author)
 
@@ -272,9 +273,11 @@ curl -X GET http://localhost:3000/api/v1/pokedex/1
 ]
 ```
 
-## Getting Started
+## Development
 
-### 1. Install the Dependencies
+### Getting Started
+
+#### 1. Install the Dependencies
 
 You'll need to install the project dependencies before you can start the server:
 
@@ -282,7 +285,7 @@ You'll need to install the project dependencies before you can start the server:
 $ npm install
 ```
 
-### 2. Process & Import the Pokédex Dataset
+#### 2. Process & Import the Pokédex Dataset
 
 After installing the project dependencies, process and import the dataset into the Pokédex database:
 
@@ -294,7 +297,7 @@ $ npm run data:process
 $ npm run data:import
 ```
 
-### 3. Start the Server
+#### 3. Start the Server
 
 You can start the server in various modes:
 
@@ -306,9 +309,9 @@ $ npm run start
 $ npm run start:prod
 ```
 
-## Testing & Debugging
+### Testing & Debugging
 
-### Testing
+#### Testing
 
 You can test the server by using any of the following commands below:
 
@@ -326,7 +329,7 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-### Debugging
+#### Debugging
 
 For debugging, you can debug the server or unit tests using one of the commands below:
 
@@ -338,7 +341,7 @@ $ npm run start:debug
 $ npm run test:debug
 ```
 
-## Building the Project
+### Building the Project
 
 To build the production bundle, run the following command:
 
