@@ -11,16 +11,19 @@ A RESTful Pokédex API
     1. [Stack](#stack)
     2. [Database Schema](#database-schema)
     3. [API Specification](#api-specification)
-3. [Getting Started](#getting-started)
+3. [Usage](#usage)
+    1. [Get All Pokémon](#get-all-pokémon)
+    2. [Get Pokémon by ID](#get-pokémon-by-id)
+4. [Getting Started](#getting-started)
     1. [Installing the Dependencies](#1-install-the-dependencies)
     2. [Process & Import the Pokédex Dataset](#2-process--import-the-pokédex-dataset)
     3. [Start the Server](#3-start-the-server)
-4. [Testing & Debugging](#testing--debugging)
+5. [Testing & Debugging](#testing--debugging)
     1. [Testing](#testing)
     2. [Debugging](#debugging)
-5. [Building the Project](#building-the-project)
-6. [Version](#version)
-7. [Author](#author)
+6. [Building the Project](#building-the-project)
+7. [Version](#version)
+8. [Author](#author)
 
 ## Features
 
@@ -29,6 +32,7 @@ A RESTful Pokédex API
 - Normalised database schema
 - Dataset cleansing, processing, and importing scripts
 - Web caching with `Cache-Control` and `ETag`
+- Support for CORS
 - Zero-indexed pagination with `limit` and `offset`
 - Pagination metadata in response headers (`X-Item-Count`, `X-Page-Count`, etc.)
 
@@ -142,6 +146,131 @@ Source: [Complete Pokémon Dataset (Updated 16.04.21)](https://www.kaggle.com/da
 ### API Specification
 
 The specification for the Pokédex API can be found [here](./openapi.yml).
+
+## Usage
+
+The following are basic examples of how to use the Pokédex API. For more detailed and comprehensive examples, please refer to the API specification [here](./openapi.yml).
+
+### Get All Pokémon
+
+#### Endpoint
+
+```bash
+GET /pokedex
+```
+
+#### Request
+
+```bash
+curl -X GET http://localhost:3000/api/v1/pokedex
+```
+
+#### Response (200 - OK)
+
+```bash
+[
+    {
+        "id": 1,
+        "name": "Bulbasaur",
+        "german_name": "Bisasam",
+        "japanese_name": "フシギダネ (Fushigidane)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Seed",
+        "abilities": {
+            "ability_1": "Overgrow",
+            "ability_2": "",
+            "ability_hidden": "Chlorophyll"
+        },
+        "types": {
+            "type_1": "Grass",
+            "type_2": "Poison"
+        },
+        "height": {
+            "value": 0.7,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 6.9,
+            "unit": "kilograms"
+        }
+    },
+    {
+        "id": 2,
+        "name": "Ivysaur",
+        "german_name": "Bisaknosp",
+        "japanese_name": "フシギソウ (Fushigisou)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Seed",
+        "abilities": {
+            "ability_1": "Overgrow",
+            "ability_2": "",
+            "ability_hidden": "Chlorophyll"
+        },
+        "types": {
+            "type_1": "Grass",
+            "type_2": "Poison"
+        },
+        "height": {
+            "value": 1,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 13,
+            "unit": "kilograms"
+        }
+    }
+    // ...
+]
+```
+
+#### Get Pokémon by ID
+
+#### Endpoint
+
+```bash
+GET /pokedex/{id}
+```
+
+#### Request
+
+```bash
+curl -X GET http://localhost:3000/api/v1/pokedex/1
+```
+
+#### Response (200 - OK)
+
+```bash
+[
+    {
+        "id": 1,
+        "name": "Bulbasaur",
+        "german_name": "Bisasam",
+        "japanese_name": "フシギダネ (Fushigidane)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Seed",
+        "abilities": {
+            "ability_1": "Overgrow",
+            "ability_2": "",
+            "ability_hidden": "Chlorophyll"
+        },
+        "types": {
+            "type_1": "Grass",
+            "type_2": "Poison"
+        },
+        "height": {
+            "value": 0.7,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 6.9,
+            "unit": "kilograms"
+        }
+    }
+]
+```
 
 ## Getting Started
 
