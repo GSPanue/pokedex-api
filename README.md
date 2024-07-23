@@ -156,19 +156,19 @@ The following are basic examples of how to use the Pokédex API. For more detail
 
 #### Endpoint
 
-```bash
+```text
 GET /pokedex
 ```
 
 #### Request
 
-```bash
+```text
 curl -X GET http://localhost:3000/api/v1/pokedex
 ```
 
 #### Response (200 - OK)
 
-```bash
+```json
 [
     {
         "id": 1,
@@ -230,19 +230,19 @@ curl -X GET http://localhost:3000/api/v1/pokedex
 
 #### Endpoint
 
-```bash
+```text
 GET /pokedex/{id}
 ```
 
 #### Request
 
-```bash
+```text
 curl -X GET http://localhost:3000/api/v1/pokedex/1
 ```
 
 #### Response (200 - OK)
 
-```bash
+```json
 [
     {
         "id": 1,
