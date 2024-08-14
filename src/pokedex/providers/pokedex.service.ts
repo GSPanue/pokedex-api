@@ -56,13 +56,13 @@ export class PokedexService implements IPokedexService {
       },
     });
 
-    // Transform results
-    const transformedResults: IPokemon[] = transformToPokemonArray(results);
-
     // Check if results are empty, throw an error if so
     const hasNoResults = isEmpty(results);
 
     if (hasNoResults) throw new NotFoundException(`Not Found`);
+
+    // Transform results
+    const transformedResults: IPokemon[] = transformToPokemonArray(results);
 
     return {
       results: transformedResults,
