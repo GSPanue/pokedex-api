@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { NotFoundException } from '@nestjs/common';
 
 import { Pokemon } from '@entities';
 import { calculateSkip } from '@common';
@@ -228,11 +229,6 @@ describe('PokedexService', () => {
 
       expect(res).toHaveProperty('results');
       expect(res).toHaveProperty('count');
-
-      expect(res).toEqual({
-        results: mockTransformedPokemonArray,
-        count: 1,
-      });
     });
 
     it('should have an array assigned to results', async () => {
@@ -259,6 +255,73 @@ describe('PokedexService', () => {
       const res = await pokedexService.getPokemon(query);
 
       expect(res.count).toEqual(1);
+    });
+  });
+
+  describe('getPokemonById', () => {
+    it('should find and count the results', async () => {
+      const params = { id: 1 };
+
+      await pokedexService.getPokemonById(params);
+
+      expect(pokemonRepository.findAndCount).toHaveBeenCalledWith({
+        where: {
+          pokedex_id: params.id,
+        },
+        order: {
+          id: 'asc',
+        },
+      });
+      expect(pokemonRepository.findAndCount).toHaveBeenCalledTimes(1);
+    });
+
+    it('should transform the results', async () => {
+      const params = { id: 1 };
+
+      await pokedexService.getPokemonById(params);
+
+      expect(mockTransformToPokemonArray).toHaveBeenCalledWith(
+        mockPokemonArray,
+      );
+      expect(mockTransformToPokemonArray).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return an object', async () => {
+      const params = { id: 1 };
+
+      const res = await pokedexService.getPokemonById(params);
+
+      expect(res).toHaveProperty('results');
+      expect(res).toHaveProperty('count');
+    });
+
+    it('should have an array assigned to results', async () => {
+      const params = { id: 1 };
+
+      const res = await pokedexService.getPokemonById(params);
+
+      expect(res.results).toEqual(mockTransformedPokemonArray);
+    });
+
+    it('should have a number assigned to count', async () => {
+      const params = { id: 1 };
+
+      const res = await pokedexService.getPokemonById(params);
+
+      expect(res.count).toEqual(1);
+    });
+
+    it('should throw a NotFoundException if no results are found', async () => {
+      (pokemonRepository.findAndCount as jest.Mock).mockResolvedValueOnce([
+        [],
+        0,
+      ]);
+
+      const params = { id: 1 };
+
+      await expect(pokedexService.getPokemonById(params)).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 });
