@@ -166,7 +166,27 @@ GET /pokedex
 curl -X GET http://localhost:3000/api/v1/pokedex
 ```
 
-#### Response (200 - OK)
+#### Response (200 OK)
+
+##### Headers
+
+| Key                         | Value                             |
+| --------------------------- | --------------------------------- |
+| Access-Control-Allow-Origin | *                                 |
+| Cache-Control               | max-age=3600, public              |
+| ETag                        | "dc7-PQ90ux/9Gpjcyxyi/c7lkE1rNTM" |
+| X-Item-Count                | 10                                |
+| X-Total-Count               | 1045                              |
+| X-Page-Count                | 105                               |
+| X-Current-Page              | 0                                 |
+| X-Page-Size                 | 10                                |
+| X-Has-Next-Page             | true                              |
+| X-Has-Previous-page         | false                             |
+| Content-Type                | application/json; charset=utf-8   |
+| Content-Length              | 3527                              |
+| Date                        | Thu, 15 Aug 2024 18:46:50 GMT     |
+
+##### Body
 
 ```json
 [
@@ -221,8 +241,215 @@ curl -X GET http://localhost:3000/api/v1/pokedex
             "value": 13,
             "unit": "kilograms"
         }
+    },
+    {
+        "id": 3,
+        "name": "Venusaur",
+        "german_name": "Bisaflor",
+        "japanese_name": "フシギバナ (Fushigibana)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Seed",
+        "abilities": {
+            "ability_1": "Overgrow",
+            "ability_2": "",
+            "ability_hidden": "Chlorophyll"
+        },
+        "types": {
+            "type_1": "Grass",
+            "type_2": "Poison"
+        },
+        "height": {
+            "value": 2,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 100,
+            "unit": "kilograms"
+        }
+    },
+    {
+        "id": 3,
+        "name": "Mega Venusaur",
+        "german_name": "Bisaflor",
+        "japanese_name": "フシギバナ (Fushigibana)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Seed",
+        "abilities": {
+            "ability_1": "Thick Fat",
+            "ability_2": "",
+            "ability_hidden": ""
+        },
+        "types": {
+            "type_1": "Grass",
+            "type_2": "Poison"
+        },
+        "height": {
+            "value": 2.4,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 155.5,
+            "unit": "kilograms"
+        }
+    },
+    {
+        "id": 4,
+        "name": "Charmander",
+        "german_name": "Glumanda",
+        "japanese_name": "ヒトカゲ (Hitokage)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Lizard",
+        "abilities": {
+            "ability_1": "Blaze",
+            "ability_2": "",
+            "ability_hidden": "Solar Power"
+        },
+        "types": {
+            "type_1": "Fire",
+            "type_2": ""
+        },
+        "height": {
+            "value": 0.6,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 8.5,
+            "unit": "kilograms"
+        }
+    },
+    {
+        "id": 5,
+        "name": "Charmeleon",
+        "german_name": "Glutexo",
+        "japanese_name": "リザード (Lizardo)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Flame",
+        "abilities": {
+            "ability_1": "Blaze",
+            "ability_2": "",
+            "ability_hidden": "Solar Power"
+        },
+        "types": {
+            "type_1": "Fire",
+            "type_2": ""
+        },
+        "height": {
+            "value": 1.1,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 19,
+            "unit": "kilograms"
+        }
+    },
+    {
+        "id": 6,
+        "name": "Charizard",
+        "german_name": "Glurak",
+        "japanese_name": "リザードン (Lizardon)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Flame",
+        "abilities": {
+            "ability_1": "Blaze",
+            "ability_2": "",
+            "ability_hidden": "Solar Power"
+        },
+        "types": {
+            "type_1": "Fire",
+            "type_2": "Flying"
+        },
+        "height": {
+            "value": 1.7,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 90.5,
+            "unit": "kilograms"
+        }
+    },
+    {
+        "id": 6,
+        "name": "Mega Charizard X",
+        "german_name": "Glurak",
+        "japanese_name": "リザードン (Lizardon)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Flame",
+        "abilities": {
+            "ability_1": "Tough Claws",
+            "ability_2": "",
+            "ability_hidden": ""
+        },
+        "types": {
+            "type_1": "Fire",
+            "type_2": "Dragon"
+        },
+        "height": {
+            "value": 1.7,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 110.5,
+            "unit": "kilograms"
+        }
+    },
+    {
+        "id": 6,
+        "name": "Mega Charizard Y",
+        "german_name": "Glurak",
+        "japanese_name": "リザードン (Lizardon)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Flame",
+        "abilities": {
+            "ability_1": "Drought",
+            "ability_2": "",
+            "ability_hidden": ""
+        },
+        "types": {
+            "type_1": "Fire",
+            "type_2": "Flying"
+        },
+        "height": {
+            "value": 1.7,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 100.5,
+            "unit": "kilograms"
+        }
+    },
+    {
+        "id": 7,
+        "name": "Squirtle",
+        "german_name": "Schiggy",
+        "japanese_name": "ゼニガメ (Zenigame)",
+        "generation": 1,
+        "rarity": "Normal",
+        "species": "Tiny Turtle",
+        "abilities": {
+            "ability_1": "Torrent",
+            "ability_2": "",
+            "ability_hidden": "Rain Dish"
+        },
+        "types": {
+            "type_1": "Water",
+            "type_2": ""
+        },
+        "height": {
+            "value": 0.5,
+            "unit": "metres"
+        },
+        "weight": {
+            "value": 9,
+            "unit": "kilograms"
+        }
     }
-    // ...
 ]
 ```
 
@@ -240,7 +467,21 @@ GET /pokedex/{id}
 curl -X GET http://localhost:3000/api/v1/pokedex/1
 ```
 
-#### Response (200 - OK)
+#### Response (200 OK)
+
+##### Headers
+
+| Key                         | Value                             |
+| --------------------------- | --------------------------------- |
+| Access-Control-Allow-Origin | *                                 |
+| Cache-Control               | max-age=3600, public              |
+| ETag                        | "168-44xlX23h35Qfw/KTfcJhQUzkOU8" |
+| X-Item-Count                | 1                                 |
+| Content-Type                | application/json; charset=utf-8   |
+| Content-Length              | 360                               |
+| Date                        | Thu, 15 Aug 2024 18:53:04 GMT     |
+
+##### Body
 
 ```json
 [
