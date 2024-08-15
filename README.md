@@ -160,6 +160,15 @@ The following are basic examples of how to use the Pokédex API. For more detail
 GET /pokedex
 ```
 
+#### Query Parameters
+
+| Name   | Description                                                       | Default Value |
+| ------ | ----------------------------------------------------------------- | ------------- |
+| limit  | How many Pokémon should be retrieved in a single request          | 10            |
+| offset | How far into the list of Pokémon should the response start        | 0             |
+| sort   | The attribute by which the list of Pokémon should be sorted       | generation    |
+| order  | Specifies the order in which the list of Pokémon should be sorted | asc           |
+
 #### Request
 
 ```text
@@ -453,7 +462,7 @@ curl -X GET http://localhost:3000/api/v1/pokedex
 ]
 ```
 
-#### Get Pokémon by ID
+### Get Pokémon by ID
 
 #### Endpoint
 
