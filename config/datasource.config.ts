@@ -24,7 +24,7 @@ const createAppDataSource: CreateAppDataSource = () => {
     password,
     database,
     logging: false,
-    migrations: ['**/migrations/*{.ts}'],
+    migrations: ['src/migrations/*{.ts}'],
     synchronize: false,
     migrationsRun: true,
     entities: ['src/entity/*.entity.ts'],
