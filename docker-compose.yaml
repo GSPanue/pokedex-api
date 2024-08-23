@@ -16,7 +16,7 @@ services:
     volumes:
       - .:/server
       - server_data:/server_data
-    command: sh entrypoint.sh
+    command: sh bin/entrypoint.sh
     ports:
       - "3000:3000"
     depends_on:
