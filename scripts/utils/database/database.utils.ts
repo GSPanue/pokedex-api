@@ -1,5 +1,3 @@
-import { DataSource } from 'typeorm';
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { all as QAll } from 'q';
 import {
   Pokemon,
@@ -17,45 +15,19 @@ import {
 import { filter, isNull, merge } from 'lodash';
 import 'dotenv/config';
 
-import type { DataSource as DataSourceType } from 'typeorm';
+import type { DataSource } from 'typeorm';
 import type { PokemonData } from '@scripts/shared';
 
-type CreateAppDataSourceReturnType = DataSource;
-interface CreateAppDataSource {
-  (): CreateAppDataSourceReturnType;
-}
-
-const createAppDataSource: CreateAppDataSource = () => {
-  const {
-    DB_USER: username,
-    DB_PASSWORD: password,
-    DB_HOST: host,
-    DB_NAME: database,
-    DB_PORT: port,
-  } = process.env;
-
-  return new DataSource({
-    type: 'postgres',
-    host,
-    port: Number(port),
-    username,
-    password,
-    database,
-    synchronize: true,
-    logging: false,
-    entities: ['src/entity/*.entity.ts'],
-    namingStrategy: new SnakeNamingStrategy(),
-  });
-};
-
-type CreateDatabaseConnectionReturnType = Promise<DataSourceType>;
+type CreateDatabaseConnectionReturnType = Promise<DataSource>;
 interface CreateDatabaseConnection {
-  (): CreateDatabaseConnectionReturnType;
+  (AppDataSource: DataSource): CreateDatabaseConnectionReturnType;
 }
 
-const createDatabaseConnection: CreateDatabaseConnection = async () => {
+const createDatabaseConnection: CreateDatabaseConnection = async (
+  AppDataSource,
+) => {
   try {
-    const client = await createAppDataSource().initialize();
+    const client = await AppDataSource.initialize();
 
     return client;
   } catch (error) {
@@ -80,7 +52,7 @@ type Entities = {
 
 type ImportNamesReturnType = Promise<Partial<Entities>>;
 interface ImportNames {
-  (db: DataSourceType, datum: PokemonData): ImportNamesReturnType;
+  (db: DataSource, datum: PokemonData): ImportNamesReturnType;
 }
 
 const importNames: ImportNames = async (db, datum) => {
@@ -108,7 +80,7 @@ const importNames: ImportNames = async (db, datum) => {
 
 type ImportAttributesReturnType = Promise<Partial<Entities>>;
 interface ImportAttributes {
-  (db: DataSourceType, datum: PokemonData): ImportAttributesReturnType;
+  (db: DataSource, datum: PokemonData): ImportAttributesReturnType;
 }
 
 const importAttributes: ImportAttributes = async (db, datum) => {
@@ -164,7 +136,7 @@ const importAttributes: ImportAttributes = async (db, datum) => {
 type ImportPokemonReturnType = Promise<void>;
 interface ImportPokemon {
   (
-    db: DataSourceType,
+    db: DataSource,
     entities: Partial<Entities>,
     datum: PokemonData,
   ): ImportPokemonReturnType;
@@ -193,7 +165,7 @@ const importPokemon: ImportPokemon = async (db, entities, datum) => {
 
 type ImportDataReturnType = Promise<void>;
 interface ImportData {
-  (db: DataSourceType, data: PokemonData[]): ImportDataReturnType;
+  (db: DataSource, data: PokemonData[]): ImportDataReturnType;
 }
 
 const importData: ImportData = async (db, data) => {

@@ -19,6 +19,7 @@
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "paths": {
+      "@config": ["config"],
       "@dataset/raw": ["dataset/raw"],
       "@dataset/processed": ["dataset/processed"],
       "@scripts/utils": ["scripts/utils"],

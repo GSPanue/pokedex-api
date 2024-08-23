@@ -1,5 +1,6 @@
 import { join } from 'path';
 
+import { AppDataSource } from '@config';
 import { createDatabaseConnection, importData } from '@scripts/utils';
 import { getFile, getData } from '@scripts/shared';
 
@@ -40,7 +41,7 @@ const start = async () => {
     const data = await getData(file, keys);
 
     console.log('Connecting to database...\n');
-    const db = await createDatabaseConnection();
+    const db = await createDatabaseConnection(AppDataSource);
 
     console.log('Importing data...\n');
     await importData(db, data);
