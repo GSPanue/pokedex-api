@@ -9,8 +9,8 @@ if [ ! -f "$FLAG_FILE" ]; then
   npm install
 
   # Process and import dataset into the database
-  # npm run data:process
-  # npm run data:import
+  npm run data:process
+  npm run data:import
 
   # Create flag file to mark setup as complete
   touch "$FLAG_FILE"
