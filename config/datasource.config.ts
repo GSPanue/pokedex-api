@@ -24,10 +24,10 @@ const createAppDataSource: CreateAppDataSource = () => {
     password,
     database,
     logging: false,
-    migrations: ['src/migrations/*{.ts}'],
+    migrations: ['/server/src/migrations/*.ts'],
     synchronize: false,
     migrationsRun: true,
-    entities: ['src/entity/*.entity.ts'],
+    entities: ['/server/src/entity/*.entity.ts'],
     namingStrategy: new SnakeNamingStrategy(),
   });
 };
