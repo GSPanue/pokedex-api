@@ -9,20 +9,29 @@ if [ ! -f "$FLAG_FILE" ]; then
   # Install project dependencies
   npm install
 
+  # Check if migrations exist
   if [ -z "$(ls -A $MIGRATIONS_DIR)" ]; then
     echo "No migrations found. Generating initial schema..."
     npm run migration:generate /server/src/migrations/InitialSchema
   fi
 
-  # Process and import dataset into the database
+  # Run migrations and import dataset into database
+  echo "Running migrations..."
+  npm run migration:run
+
+  echo "Importing dataset into database..."
   npm run data:process
   npm run data:import
 
   # Create flag file to mark setup as complete
   touch "$FLAG_FILE"
 else
-  echo "Skipping setup..."
+  # Run migrations
+  echo "Running migrations..."
+  npm run migration:run
 fi
+
+echo "Starting development server..."
 
 # Start the development server
 npm start
