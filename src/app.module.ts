@@ -1,11 +1,11 @@
 import { Module, NestModule } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { ConfigModule } from '@nestjs/config';
 
 import type { MiddlewareConsumer } from '@nestjs/common';
 
+import { createDefaultConfig } from '@config';
 import {
   HttpHeaderMiddleware,
   HttpHeaderFilter,
@@ -19,17 +19,7 @@ import { PokedexModule } from './pokedex';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
-      useFactory: (config: ConfigService) => ({
-        type: process.env.DB_TYPE as 'postgres',
-        host: config.get<string>('DB_HOST'),
-        port: config.get<number>('DB_PORT'),
-        username: config.get<string>('DB_USER'),
-        password: config.get<string>('DB_PASSWORD'),
-        database: config.get<string>('DB_NAME'),
-        autoLoadEntities: true,
-        namingStrategy: new SnakeNamingStrategy(),
-      }),
-      inject: [ConfigService],
+      useFactory: createDefaultConfig,
     }),
     PokedexModule,
   ],
