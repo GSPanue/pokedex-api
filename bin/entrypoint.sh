@@ -7,6 +7,7 @@ if [ ! -f "$FLAG_FILE" ]; then
   echo "First time setup..."
 
   # Install project dependencies
+  echo "Installing project dependencies..."
   npm install
 
   # Check if migrations exist
@@ -31,7 +32,6 @@ else
   npm run migration:run
 fi
 
-echo "Starting development server..."
-
 # Start the development server
+echo "Starting development server..."
 npm start
