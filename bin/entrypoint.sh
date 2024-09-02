@@ -3,6 +3,11 @@
 FLAG_FILE="/server_data/.initialized"
 MIGRATIONS_DIR="/server/src/migrations"
 
+# Load environment variables
+if [ -f .env ]; then
+  export $(grep -v '^#' .env | xargs)
+fi
+
 if [ ! -f "$FLAG_FILE" ]; then
   echo "First time setup..."
 
