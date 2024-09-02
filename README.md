@@ -16,12 +16,9 @@ A RESTful Pokédex API
     2. [Get Pokémon by ID](#get-pokémon-by-id)
 4. [Development](#development)
     1. [Getting Started](#getting-started)
-        1. [Installing the Dependencies](#1-install-the-dependencies)
-        2. [Process & Import the Pokédex Dataset](#2-process--import-the-pokédex-dataset)
-        3. [Start the Server](#3-start-the-server)
+        1. [Create a .env File](#1-create-a-env-file)
+        2. [Start the Docker Container](#2-start-the-docker-container)
     2. [Testing & Debugging](#testing--debugging)
-        1. [Testing](#testing)
-        2. [Debugging](#debugging)
     3. [Building the Project](#building-the-project)
 7. [Version](#version)
 8. [Author](#author)
@@ -41,6 +38,7 @@ A RESTful Pokédex API
 
 ### Stack
 
+- Docker
 - TypeScript
 - PostgreSQL
 - TypeORM
@@ -527,41 +525,19 @@ curl -X GET http://localhost:3000/api/v1/pokedex/1
 
 ### Getting Started
 
-#### 1. Install the Dependencies
+#### 1. Create a `.env` File
 
-You'll need to install the project dependencies before you can start the server:
+In the project root, create a `.env` file using the environment variables from [`.env.sample`](./.env.sample). Adjust the values as needed.
 
-```bash
-$ npm install
-```
+#### 2. Start the Docker Container
 
-#### 2. Process & Import the Pokédex Dataset
-
-After installing the project dependencies, process and import the dataset into the Pokédex database:
+To start the server, use Docker Compose. Run the following command in your terminal:
 
 ```bash
-# Process the dataset
-$ npm run data:process
-
-# Import the dataset
-$ npm run data:import
-```
-
-#### 3. Start the Server
-
-You can start the server in various modes:
-
-```bash
-# Start the server in Development mode
-$ npm run start
-
-# Start the server in Production mode
-$ npm run start:prod
+$ docker compose up -d
 ```
 
 ### Testing & Debugging
-
-#### Testing
 
 You can test the server by using any of the following commands below:
 
@@ -577,15 +553,6 @@ $ npm run test:e2e
 
 # Create a code coverage report
 $ npm run test:cov
-```
-
-#### Debugging
-
-For debugging, you can debug the server or unit tests using one of the commands below:
-
-```bash
-# Start the server in Debug mode
-$ npm run start:debug
 
 # Debug unit tests
 $ npm run test:debug
