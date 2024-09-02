@@ -37,6 +37,11 @@ else
   npm run migration:run
 fi
 
-# Start the development server
-echo "Starting development server..."
-npm start
+# Start server
+if [ "$ENVIRONMENT" = "production" ]; then
+  echo "Starting production server..."
+  npm run start:prod
+else
+  echo "Starting development server..."
+  npm start
+fi
