@@ -12,7 +12,6 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "npm run start:dev",
     "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
     "lint": "npm run docker:connect && eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "docker:connect": "docker exec pokedex-api-server-1 sh",
