@@ -19,12 +19,12 @@ import { PokedexModule } from './pokedex';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    TypeOrmModule.forRootAsync({
+      useFactory: createDefaultTypeOrmConfig,
+    }),
     CacheModule.registerAsync({
       isGlobal: true,
       useFactory: createDefaultRedisConfig,
-    }),
-    TypeOrmModule.forRootAsync({
-      useFactory: createDefaultTypeOrmConfig,
     }),
     PokedexModule,
   ],
