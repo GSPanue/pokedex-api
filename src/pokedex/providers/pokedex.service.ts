@@ -1,7 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { isEmpty } from 'lodash';
+import { Cache } from 'cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 import { Pokemon } from '@entities';
 import { calculateSkip } from '@common';
@@ -17,6 +19,7 @@ import type { GetPokemonDto, GetPokemonByIdDto } from '../dto';
 @Injectable()
 export class PokedexService implements IPokedexService {
   constructor(
+    @Inject(CACHE_MANAGER) private cacheService: Cache,
     @InjectRepository(Pokemon)
     private pokemonRepository: Repository<Pokemon>,
   ) {}
