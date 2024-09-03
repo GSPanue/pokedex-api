@@ -2,10 +2,11 @@ import { Module, NestModule } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { CacheModule } from '@nestjs/cache-manager';
 
 import type { MiddlewareConsumer } from '@nestjs/common';
 
-import { createDefaultConfig } from '@config';
+import { createDefaultConfig, createDefaultRedisConfig } from '@config';
 import {
   HttpHeaderMiddleware,
   HttpHeaderFilter,
@@ -17,6 +18,10 @@ import { PokedexModule } from './pokedex';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    CacheModule.registerAsync({
+      isGlobal: true,
+      useFactory: createDefaultRedisConfig,
     }),
     TypeOrmModule.forRootAsync({
       useFactory: createDefaultConfig,
