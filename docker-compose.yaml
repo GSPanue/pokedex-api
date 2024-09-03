@@ -34,14 +34,14 @@ services:
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
     volumes:
-      - redis:/data
+      - redis_data:/data
     networks:
       - api_network
 
 volumes:
   server_data:
   db_data:
-  redis:
+  redis_data:
 
 networks:
   api_network:
