@@ -4,7 +4,7 @@ services:
     working_dir: /server
     volumes:
       - .:/server
-      - server_data:/server_data
+      - server_data:/data
     command: sh bin/entrypoint.sh
     ports:
       - "3000:3000"

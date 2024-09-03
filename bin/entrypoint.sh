@@ -1,6 +1,6 @@
 #!/bin/sh
 
-FLAG_FILE="/server_data/.initialized"
+FLAG_FILE="/data/.initialized"
 MIGRATIONS_DIR="/server/src/migrations"
 
 # Load environment variables
