@@ -1,7 +1,6 @@
 import { Module, NestModule } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
 import { CacheModule } from '@nestjs/cache-manager';
 
 import type { MiddlewareConsumer } from '@nestjs/common';
@@ -16,9 +15,6 @@ import { PokedexModule } from './pokedex';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
     TypeOrmModule.forRootAsync({
       useFactory: createDefaultTypeOrmConfig,
     }),
