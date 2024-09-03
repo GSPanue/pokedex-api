@@ -1,4 +1,19 @@
 services:
+  server:
+    image: node:20
+    working_dir: /server
+    volumes:
+      - .:/server
+      - server_data:/server_data
+    command: sh bin/entrypoint.sh
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - api_network
+
   db:
     image: postgres:16
     environment:
@@ -23,24 +38,9 @@ services:
     networks:
       - api_network
 
-  server:
-    image: node:20
-    working_dir: /server
-    volumes:
-      - .:/server
-      - server_data:/server_data
-    command: sh bin/entrypoint.sh
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-      - redis
-    networks:
-      - api_network
-
 volumes:
-  db_data:
   server_data:
+  db_data:
   redis:
 
 networks:
