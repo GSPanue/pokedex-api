@@ -9,6 +9,19 @@ services:
       - ${DB_PORT}:${DB_PORT}
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - api_network
+
+  redis:
+    image: redis
+    environment:
+      REDIS_PORT: ${REDIS_PORT}
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    volumes:
+      - redis:/data
+    networks:
+      - api_network
 
   server:
     image: node:20
@@ -21,7 +34,15 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - redis
+    networks:
+      - api_network
 
 volumes:
   db_data:
   server_data:
+  redis:
+
+networks:
+  api_network:
+    driver: bridge
