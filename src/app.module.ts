@@ -6,7 +6,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 
 import type { MiddlewareConsumer } from '@nestjs/common';
 
-import { createDefaultConfig, createDefaultRedisConfig } from '@config';
+import { createDefaultTypeOrmConfig, createDefaultRedisConfig } from '@config';
 import {
   HttpHeaderMiddleware,
   HttpHeaderFilter,
@@ -24,7 +24,7 @@ import { PokedexModule } from './pokedex';
       useFactory: createDefaultRedisConfig,
     }),
     TypeOrmModule.forRootAsync({
-      useFactory: createDefaultConfig,
+      useFactory: createDefaultTypeOrmConfig,
     }),
     PokedexModule,
   ],

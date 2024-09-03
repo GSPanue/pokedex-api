@@ -3,12 +3,12 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import 'dotenv/config';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
-type CreateDefaultConfigReturnType = PostgresConnectionOptions;
-interface CreateDefaultConfig {
-  (): CreateDefaultConfigReturnType;
+type CreateDefaultTypeOrmConfigReturnType = PostgresConnectionOptions;
+interface CreateDefaultTypeOrmConfig {
+  (): CreateDefaultTypeOrmConfigReturnType;
 }
 
-const createDefaultConfig: CreateDefaultConfig = () => {
+const createDefaultTypeOrmConfig: CreateDefaultTypeOrmConfig = () => {
   const {
     DB_USER: username,
     DB_PASSWORD: password,
@@ -36,8 +36,8 @@ interface CreateAppDataSource {
 }
 
 const createAppDataSource: CreateAppDataSource = () =>
-  new DataSource(createDefaultConfig());
+  new DataSource(createDefaultTypeOrmConfig());
 
 const AppDataSource = createAppDataSource();
 
-export { createDefaultConfig, AppDataSource };
+export { createDefaultTypeOrmConfig, AppDataSource };
