@@ -40,5 +40,4 @@ const createAppDataSource: CreateAppDataSource = () =>
 
 const AppDataSource = createAppDataSource();
 
-export { createDefaultConfig };
-export default AppDataSource;
+export { createDefaultConfig, AppDataSource };
