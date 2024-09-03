@@ -1,16 +1,16 @@
 import redisStore from 'cache-manager-redis-store';
 import 'dotenv/config';
 
-type CreateDefaultConfigReturnType = {
+type CreateDefaultRedisConfigReturnType = {
   store: any;
   host: string;
   port: number;
 };
-interface CreateDefaultConfig {
-  (): CreateDefaultConfigReturnType;
+interface CreateDefaultRedisConfig {
+  (): CreateDefaultRedisConfigReturnType;
 }
 
-const createDefaultRedisConfig: CreateDefaultConfig = () => {
+const createDefaultRedisConfig: CreateDefaultRedisConfig = () => {
   const { REDIS_HOST: host, REDIS_PORT: port } = process.env;
 
   return {
