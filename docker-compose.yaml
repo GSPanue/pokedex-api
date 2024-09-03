@@ -12,7 +12,7 @@ services:
       - db
       - redis
     networks:
-      - api_network
+      - network
 
   db:
     image: postgres:16
@@ -25,7 +25,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
-      - api_network
+      - network
 
   redis:
     image: redis
@@ -36,7 +36,7 @@ services:
     volumes:
       - redis_data:/data
     networks:
-      - api_network
+      - network
 
 volumes:
   server_data:
@@ -44,5 +44,5 @@ volumes:
   redis_data:
 
 networks:
-  api_network:
+  network:
     driver: bridge
