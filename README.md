@@ -164,7 +164,7 @@ GET /pokedex
 | ------ | ----------------------------------------------------------------- | ------------- |
 | limit  | How many Pokémon should be retrieved in a single request          | 10            |
 | offset | How far into the list of Pokémon should the response start        | 0             |
-| sort   | The attribute by which the list of Pokémon should be sorted       | generation    |
+| sort   | The attribute by which the list of Pokémon should be sorted       | id            |
 | order  | Specifies the order in which the list of Pokémon should be sorted | asc           |
 
 #### Request
