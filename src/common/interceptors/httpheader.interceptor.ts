@@ -8,6 +8,9 @@ import { catchError } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import * as ETag from 'etag';
 
+import type { CallHandler, ExecutionContext } from '@nestjs/common';
+import type { Observable } from 'rxjs';
+
 import {
   calculateItemCount,
   calculatePageCount,
@@ -15,10 +18,8 @@ import {
   calculatePageSize,
   hasNextPage,
   hasPreviousPage,
+  globalHttpPrefix,
 } from '@common';
-
-import type { CallHandler, ExecutionContext } from '@nestjs/common';
-import type { Observable } from 'rxjs';
 
 @Injectable()
 export class HttpHeaderInterceptor implements NestInterceptor {
@@ -54,12 +55,13 @@ export class HttpHeaderInterceptor implements NestInterceptor {
           res.setHeader('X-Item-Count', itemCount);
 
           const path = req.route.path;
-
-          const isPokedexRoute = path.startsWith('/api/v1/pokedex');
+          const isPokedexPath = path.startsWith(`${globalHttpPrefix}/pokedex`);
 
           // Apply custom headers for certain routes
-          if (isPokedexRoute) {
-            if (path === '/api/v1/pokedex') {
+          if (isPokedexPath) {
+            const isPokedexResource = path.endsWith('/pokedex');
+
+            if (isPokedexResource) {
               const { limit, offset } = query;
 
               const totalCount = count;
