@@ -55,5 +55,8 @@ export const createOrderObject: ICreateOrderObject = (sort, order) => {
     weight: 'weight.kg',
   };
 
-  return set({}, mapping[sort], order);
+  return {
+    ...set({}, mapping[sort], order),
+    id: order,
+  };
 };
