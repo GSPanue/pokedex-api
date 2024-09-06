@@ -1,1 +1,1 @@
-export const globalHttpPrefix = '/api/v1/';
+export const globalHttpPrefix = '/api/v1';
