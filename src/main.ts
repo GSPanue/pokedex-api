@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
 
 import { AppModule } from '@src/app.module';
-import { badRequestException } from '@common';
+import { badRequestException, globalHttpPrefix } from '@common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,7 +10,7 @@ async function bootstrap() {
 
   app.enableCors();
 
-  app.setGlobalPrefix('api/v1');
+  app.setGlobalPrefix(globalHttpPrefix);
 
   app.useGlobalPipes(
     new ValidationPipe({
