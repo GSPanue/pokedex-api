@@ -39,7 +39,7 @@ export const transformToPokemonArray: ITransformToPokemonArray = (results) =>
 
 export const createOrderObject: ICreateOrderObject = (sort, order) => {
   const mapping = {
-    id: 'pokedex_id',
+    id: 'id',
     name: 'name.name',
     german_name: 'name.german_name.name',
     japanese_name: 'name.japanese_name.name',
