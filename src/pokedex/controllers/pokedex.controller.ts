@@ -1,5 +1,13 @@
-import { Controller, Inject, Get, Query, Param } from '@nestjs/common';
+import {
+  Controller,
+  Inject,
+  Get,
+  Query,
+  Param,
+  UseInterceptors,
+} from '@nestjs/common';
 
+import { CacheInterceptor } from '../interceptors';
 import { POKEDEX_SERVICE } from '../constants';
 import { GetPokemonDto, GetPokemonByIdDto } from '../dto';
 
@@ -10,6 +18,7 @@ import type {
 } from '../interfaces';
 
 @Controller('pokedex')
+@UseInterceptors(CacheInterceptor)
 export class PokedexController implements IPokedexController {
   constructor(
     @Inject(POKEDEX_SERVICE)
