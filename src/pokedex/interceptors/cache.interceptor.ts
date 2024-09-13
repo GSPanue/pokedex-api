@@ -18,11 +18,23 @@ export class CacheInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler,
   ): Promise<Observable<any>> {
-    // Do something
+    const ctx = context.switchToHttp();
+    const req = ctx.getRequest();
+
+    const path = req.route.path;
+
+    const isPokedexResource = path.endsWith('/pokedex');
+    const isPokedexWithIdResource = path.endsWith('/pokedex/:id');
 
     return next.handle().pipe(
       tap(async (response) => {
-        // Do something else
+        const { query, rawResults, results } = response;
+
+        if (isPokedexResource) {
+          // Cache results
+        } else if (isPokedexWithIdResource) {
+          // Cache results
+        }
       }),
     );
   }
