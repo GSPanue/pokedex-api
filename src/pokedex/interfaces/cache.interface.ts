@@ -4,14 +4,28 @@ import type { Observable } from 'rxjs';
 import type { Pokemon } from '@entities';
 import type { IPokemon } from '.';
 
+export interface ICacheQueryResponse {
+  results: string[];
+  count: number;
+}
+
+export interface ICacheDataResponse {
+  results: IPokemon;
+}
+
+export interface ICacheResponse {
+  results: IPokemon[];
+  count: number;
+}
+
 export interface ICacheInterceptor {
-  cachePokemonQuery(key: string, data: Pokemon[]): Promise<void>;
+  cachePokemonQuery(key: string, data: Pokemon[], count: number): Promise<void>;
 
   cachePokemonData(id: number, data: IPokemon): Promise<void>;
 
-  retrievePokemon(key: string): Promise<IPokemon[]>;
+  retrievePokemon(key: string): Promise<ICacheResponse>;
 
-  retrievePokemonQuery(key: string): Promise<string[]>;
+  retrievePokemonQuery(key: string): Promise<ICacheQueryResponse>;
 
   retrievePokemonData(keys: string[]): Promise<IPokemon[]>;
 
