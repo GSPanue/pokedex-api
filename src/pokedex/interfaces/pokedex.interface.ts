@@ -1,3 +1,4 @@
+import type { Pokemon } from '@entities';
 import type { IPokemon } from './';
 import type { GetPokemonDto, GetPokemonByIdDto } from '../dto';
 
@@ -15,6 +16,7 @@ export interface IPokedexService {
 
 export interface IPokedexResponse {
   query?: GetPokemonDto;
+  rawResults?: Pokemon[];
   results: IPokemon[];
   count: number;
 }

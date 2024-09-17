@@ -41,6 +41,7 @@ export class PokedexService implements IPokedexService {
     const transformedResults: IPokemon[] = transformToPokemonArray(results);
 
     return {
+      rawResults: results,
       results: transformedResults,
       count,
     };
@@ -68,6 +69,7 @@ export class PokedexService implements IPokedexService {
     const transformedResults: IPokemon[] = transformToPokemonArray(results);
 
     return {
+      rawResults: results,
       results: transformedResults,
       count,
     };

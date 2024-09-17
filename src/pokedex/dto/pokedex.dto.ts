@@ -7,17 +7,19 @@ import {
   MinLength,
 } from 'class-validator';
 
+import { defaultQuery } from '@common';
+
 export class GetPokemonDto {
   @IsOptional()
   @IsNumber()
   @Min(1)
   @Max(100)
-  public limit?: number = 10;
+  public limit?: number = defaultQuery.limit;
 
   @IsOptional()
   @IsNumber()
   @Min(0)
-  public offset?: number = 0;
+  public offset?: number = defaultQuery.offset;
 
   @IsOptional()
   @IsIn([
@@ -36,12 +38,12 @@ export class GetPokemonDto {
     'height',
     'weight',
   ])
-  public sort?: string = 'id';
+  public sort?: string = defaultQuery.sort;
 
   @IsOptional()
   @IsIn(['asc', 'desc'])
   @MinLength(3)
-  public order?: string = 'asc';
+  public order?: string = defaultQuery.order;
 }
 
 export class GetPokemonByIdDto {

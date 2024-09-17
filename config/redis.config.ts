@@ -17,7 +17,8 @@ const createDefaultRedisConfig: CreateDefaultRedisConfig = () => {
     store: redisStore,
     host,
     port: Number(port),
-    ttl: 0,
+    ttl: 3600000,
+    max: 1000000,
   };
 };
 
