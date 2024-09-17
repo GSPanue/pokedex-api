@@ -39,7 +39,7 @@ export class CacheInterceptor implements ICacheInterceptor, NestInterceptor {
       createCacheKey(`data:${datum.id}`),
     );
 
-    // Store query as key and ids and count as value
+    // Cache query using the query as the key with the cache data keys and count as the value
     await this.cacheManager.set(cacheKey, {
       results: dataCacheKeys,
       count,
@@ -53,9 +53,9 @@ export class CacheInterceptor implements ICacheInterceptor, NestInterceptor {
     const cachedResult =
       await this.cacheManager.get<ICacheDataResponse>(cacheKey);
 
-    // Check if no data exists in cache
+    // Ensure data is not cached already
     if (!cachedResult) {
-      // Store data
+      // Cache data
       await this.cacheManager.set(cacheKey, {
         results: data,
       });
@@ -63,15 +63,17 @@ export class CacheInterceptor implements ICacheInterceptor, NestInterceptor {
   }
 
   async retrievePokemon(key: string): Promise<ICacheResponse> {
-    // Get data cache keys from query
+    // Get full data cache keys assigned to cached query
     const cachedResult = await this.retrievePokemonQuery(key);
 
+    // Check if there are results from the cache
     if (cachedResult) {
       const { results: dataCacheKeys, count } = cachedResult;
 
+      // Obtain the full data using the data cache keys
       const results = await this.retrievePokemonData(dataCacheKeys);
 
-      // Return data
+      // Return cached results
       return {
         results,
         count,
@@ -99,7 +101,7 @@ export class CacheInterceptor implements ICacheInterceptor, NestInterceptor {
   }
 
   async retrievePokemonData(keys: string[]): Promise<IPokemon[]> {
-    // Retrieve full data from cache using data cache keys
+    // Retrieve full data from cache using the provided data cache keys
     const cachedResults: IPokemon[] = await Promise.all(
       keys.map(async (key) => {
         const cachedResult =
@@ -128,7 +130,7 @@ export class CacheInterceptor implements ICacheInterceptor, NestInterceptor {
 
     let cachedResults: ICacheResponse;
 
-    // Check cache
+    // Using the query as the key, check cache for data
     if (isPokedexResource) {
       const {
         limit: defaultLimit,
@@ -153,12 +155,15 @@ export class CacheInterceptor implements ICacheInterceptor, NestInterceptor {
       cachedResults = await this.retrievePokemon(`id:${id}`);
     }
 
-    // Return cached data
-    if (cachedResults.results.length > 0) {
+    const { results, count } = cachedResults;
+
+    const hasResults: boolean = results.length > 0;
+
+    // Return data from cache
+    if (hasResults) {
       return of({
-        results: cachedResults.results,
-        // @todo Cache count for /pokedex resource for custom headers
-        count: cachedResults.count,
+        results,
+        count,
         ...(isPokedexResource && {
           query: {
             ...defaultQuery,
@@ -168,7 +173,7 @@ export class CacheInterceptor implements ICacheInterceptor, NestInterceptor {
       });
     }
 
-    // Otherwise, cache data
+    // Otherwise, cache query and data
     return next.handle().pipe(
       tap(async (response: IPokedexResponse) => {
         const { query, rawResults, results, count } = response;
