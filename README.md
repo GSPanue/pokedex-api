@@ -26,13 +26,14 @@ A RESTful Pokédex API
 ## Features
 
 - Large dataset with data on 1045 Pokémon
-- OpenAPI 3.0.3 specification
+- Comprehensive OpenAPI 3.0.3 specification
 - Normalised database schema
 - Dataset cleansing, processing, and importing scripts
 - Web caching with `Cache-Control` and `ETag`
 - Support for CORS
 - Zero-indexed pagination with `limit` and `offset`
 - Pagination metadata in response headers (`X-Item-Count`, `X-Page-Count`, etc.)
+- Server-side caching with Redis using a cache-aside strategy
 
 ## Design
 
@@ -43,6 +44,7 @@ A RESTful Pokédex API
 - PostgreSQL
 - TypeORM
 - NestJS
+- Redis
 
 ### Dataset
 
